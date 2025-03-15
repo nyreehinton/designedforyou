@@ -1,0 +1,20 @@
+{
+    "name": "designed-for-you",
+    "version": "1.0.0",
+    "description": "Professional web development and design services website",
+    "main": "index.html",
+    "scripts": {
+        "start": "serve .",
+        "dev": "serve . -l 3000"
+    },
+    "keywords": [
+        "web design",
+        "web development",
+        "professional services"
+    ],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "serve": "^14.2.1"
+    }
+}
