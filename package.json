@@ -1,11 +1,13 @@
 {
-    "name": "designed-for-you",
+    "name": "designedforyou",
     "version": "1.0.0",
-    "description": "Professional web development and design services website",
+    "description": "Professional web development and design services",
     "main": "index.html",
     "scripts": {
-        "start": "serve .",
-        "dev": "serve . -l 3000"
+        "dev": "serve .",
+        "build": "next build",
+        "postbuild": "next-sitemap",
+        "generate-sitemap": "next-sitemap"
     },
     "keywords": [
         "web design",
@@ -14,7 +16,10 @@
     ],
     "author": "",
     "license": "ISC",
-    "devDependencies": {
+    "dependencies": {
         "serve": "^14.2.1"
+    },
+    "devDependencies": {
+        "next-sitemap": "^4.2.3"
     }
 }
