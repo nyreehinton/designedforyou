@@ -145,8 +145,14 @@
         }
         
         .nav-btn {
-            border: 1px solid black;
             background: none;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.9rem;
+            transition: opacity 0.2s ease;
+        }
+        
+        .nav-btn:hover {
+            opacity: 0.7;
         }
         
         @media (max-width: 768px) {
@@ -174,14 +180,66 @@
         /* Hero Section */
         
         .hero {
-            padding: calc(var(--spacing-3xl) + 64px) 0 var(--spacing-2xl);
-            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            position: relative;
             background: var(--primary-bg);
         }
         
         .hero-content {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+        
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            margin: 0;
+            color: var(--text-color);
+            text-transform: uppercase;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 1.5s;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 0.6;
+            }
+        }
+        /* Hide other hero elements initially */
+        
+        .lead,
+        .hero-buttons,
+        .hero-image {
+            display: none;
+        }
+        /* Adjust the next section to have proper spacing */
+        
+        .intro {
+            padding-top: var(--spacing-3xl);
         }
         
         .lead {
@@ -412,43 +470,12 @@
 <section class="hero" id="home">
     <div class="container">
         <div class="hero-content">
-            <h1>Web Solutions <span class="highlight">Designed For You</span></h1>
-            <p class="lead">Custom websites that showcase your brand, engage your audience, and drive business growth.</p>
-            <div class="hero-buttons">
-                <a href="#services" class="btn btn-primary">Explore Packages</a>
-                <a href="#contact" class="btn btn-outline">Free Consultation</a>
-            </div>
+            <h1>Web Solutions Designed For You</h1>
         </div>
-        <div class="hero-image">
-            <div class="carousel">
-                <div class="carousel-inner">
-                    <img src="assets/images/Glass Elegance.png" alt="Glass Elegance Design" class="carousel-item active">
-                    <img src="assets/images/Marble Luxe.png" alt="Marble Luxe Design" class="carousel-item">
-                    <img src="assets/images/Monochrome Precision.png" alt="Monochrome Precision Design" class="carousel-item">
-                    <img src="assets/images/Interactive Gradient Fusion.png" alt="Interactive Gradient Fusion Design" class="carousel-item">
-                    <button class="carousel-control prev" aria-label="Previous image">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="carousel-control next" aria-label="Next image">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                    <div class="carousel-indicators">
-                        <button class="indicator active" aria-label="Image 1"></button>
-                        <button class="indicator" aria-label="Image 2"></button>
-                        <button class="indicator" aria-label="Image 3"></button>
-                        <button class="indicator" aria-label="Image 4"></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
-            </div>
-            <div>
-                <span class="scroll-text">Scroll</span>
-            </div>
-        </div>
+    </div>
+    <div class="scroll-indicator">
+        <span class="scroll-text">Scroll</span>
+    </div>
 </section>
 
 <!-- Introduction Section -->
@@ -1045,9 +1072,14 @@
     }
     
     .nav-btn {
+        background: none;
         padding: 0.5rem 1.25rem;
         font-size: 0.9rem;
-        border: 1px solid var(--text-color);
+        transition: opacity 0.2s ease;
+    }
+    
+    .nav-btn:hover {
+        opacity: 0.7;
     }
     
     .menu-toggle {
@@ -1066,20 +1098,61 @@
     /* Hero Section */
     
     .hero {
-        padding: calc(var(--spacing-3xl) + 64px) 0 var(--spacing-2xl);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
         position: relative;
-        overflow: hidden;
         background: var(--primary-bg);
-        text-align: center;
     }
     
     .hero-content {
         max-width: 800px;
-        margin: 0 auto;
+        margin: 0;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: slideIn 1s ease forwards;
+        animation-delay: 0.5s;
+    }
+    
+    @keyframes slideIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
     
     .hero h1 {
-        margin-bottom: 2rem;
+        font-size: 1.5rem;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        margin: 0;
+        color: var(--text-color);
+        text-transform: uppercase;
+    }
+    
+    .scroll-indicator {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        animation: fadeIn 1s ease forwards;
+        animation-delay: 1.5s;
+    }
+    
+    @keyframes fadeIn {
+        to {
+            opacity: 0.6;
+        }
+    }
+    /* Hide other hero elements initially */
+    
+    .lead,
+    .hero-buttons,
+    .hero-image {
+        display: none;
     }
     
     .highlight {
@@ -1159,47 +1232,6 @@
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     }
     
-    .scroll-indicator {
-        position: absolute;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        opacity: 0.6;
-    }
-    
-    .mouse {
-        width: 25px;
-        height: 40px;
-        border: 2px solid var(--text-color);
-        border-radius: 20px;
-        display: flex;
-        justify-content: center;
-        padding-top: 10px;
-        margin-bottom: 5px;
-    }
-    
-    .wheel {
-        width: 4px;
-        height: 8px;
-        background-color: var(--text-color);
-        border-radius: 2px;
-        animation: scroll 1.5s infinite;
-    }
-    
-    @keyframes scroll {
-        0% {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(10px);
-            opacity: 0;
-        }
-    }
-    
     .scroll-text {
         font-size: 0.8rem;
         text-transform: uppercase;
@@ -1209,6 +1241,7 @@
     
     .intro {
         background-color: var(--secondary-bg);
+        padding-top: var(--spacing-3xl);
     }
     
     .section-header {
