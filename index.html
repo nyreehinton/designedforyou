@@ -170,18 +170,21 @@
         <div class="hero-image">
             <div class="carousel">
                 <div class="carousel-inner">
-                    <img src="assets/images/Marble and Glass.png" alt="Modern Website Design" class="carousel-item active">
-                    <img src="assets/images/workspacevid.mp4" alt="Simple Blog Style Design" class="carousel-item">
+                    <img src="assets/images/Glass Elegance.png" alt="Glass Elegance Design" class="carousel-item active">
+                    <img src="assets/images/Marble Luxe.png" alt="Marble Luxe Design" class="carousel-item">
+                    <img src="assets/images/Monochrome Precision.png" alt="Monochrome Precision Design" class="carousel-item">
+                    <img src="assets/images/Interactive Gradient Fusion.png" alt="Interactive Gradient Fusion Design" class="carousel-item">
                     <button class="carousel-control prev" aria-label="Previous image">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
                     <button class="carousel-control next" aria-label="Next image">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                     <div class="carousel-indicators">
                         <button class="indicator active" aria-label="Image 1"></button>
                         <button class="indicator" aria-label="Image 2"></button>
                         <button class="indicator" aria-label="Image 3"></button>
+                        <button class="indicator" aria-label="Image 4"></button>
                     </div>
                 </div>
             </div>
@@ -1423,15 +1426,18 @@
     .carousel {
         position: relative;
         width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
         overflow: hidden;
-        border-radius: 8px;
+        border-radius: 12px;
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        aspect-ratio: 16/9;
     }
     
     .carousel-inner {
         position: relative;
         width: 100%;
-        height: 400px;
+        height: 100%;
         display: flex;
         transition: transform 0.5s ease-in-out;
     }
@@ -1439,12 +1445,14 @@
     .carousel-item {
         min-width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
         position: absolute;
         top: 0;
         left: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 20px;
     }
     
     .carousel-item.active {
