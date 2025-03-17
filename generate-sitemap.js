@@ -14,7 +14,7 @@ const links = [
 ];
 
 // Create a stream to write to
-const stream = new SitemapStream({ hostname: 'https://designedforyou.netlify.app' });
+const stream = new SitemapStream({ hostname: 'https://designedforyou.ai' });
 
 // Return a promise that resolves with your XML string
 streamToPromise(Readable.from(links).pipe(stream))
@@ -31,7 +31,7 @@ const robotsTxt = `User-agent: *
 Allow: /
 Disallow: /404
 
-Sitemap: https://designedforyou.netlify.app/sitemap.xml`;
+Sitemap: https://designedforyou.ai/sitemap.xml`;
 
 fs.writeFileSync('./robots.txt', robotsTxt);
 console.log('robots.txt generated successfully!');
