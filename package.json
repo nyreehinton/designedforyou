@@ -5,9 +5,7 @@
     "main": "index.html",
     "scripts": {
         "dev": "serve .",
-        "build": "next build",
-        "postbuild": "next-sitemap",
-        "generate-sitemap": "next-sitemap"
+        "generate-sitemap": "node generate-sitemap.js"
     },
     "keywords": [
         "web design",
@@ -20,6 +18,6 @@
         "serve": "^14.2.1"
     },
     "devDependencies": {
-        "next-sitemap": "^4.2.3"
+        "sitemap": "^7.1.2"
     }
 }
