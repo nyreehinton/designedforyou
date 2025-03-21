@@ -23,27 +23,21 @@
         
          :root {
             --primary-bg: #ffffff;
-            --secondary-bg: #f7f7f7;
-            --accent-bg: #eef2ff;
-            --text-color: #18181b;
-            --text-light: #52525b;
-            --accent-color: #4f46e5;
-            --accent-light: #6366f1;
-            --hover-color: #4338ca;
-            --border-color: #e4e4e7;
-            --success-color: #10b981;
-            --error-color: #ef4444;
-            --warning-color: #f59e0b;
-            --link-color: #4f46e5;
-            --link-hover: #4338ca;
-            --btn-text: #ffffff;
-            --btn-bg: #4f46e5;
-            --btn-hover-bg: #4338ca;
-            --btn-secondary-bg: #f4f4f5;
-            --btn-secondary-text: #18181b;
-            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
-            --transition-fast: 0.15s ease;
-            --transition-normal: 0.3s ease;
+            --text-color: #111111;
+            --text-light: #555555;
+            --accent-color: #111111;
+            --hover-color: #333333;
+            --secondary-bg: #fafafa;
+            --border-color: #eaeaea;
+            --success-color: #4CAF50;
+            --error-color: #f44336;
+            --link-color: #111111;
+            --link-hover: #666666;
+            --btn-text: #111111;
+            --btn-bg: #ffffff;
+            --btn-border: #111111;
+            --btn-hover-bg: #111111;
+            --btn-hover-text: #ffffff;
             --spacing-xs: 8px;
             --spacing-sm: 16px;
             --spacing-md: 24px;
@@ -122,34 +116,20 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: white;
             z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
-            transition: var(--transition-normal);
         }
         
         .site-header .container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 70px;
         }
         
         .logo {
             text-decoration: none;
-            color: var(--text-color);
-            font-weight: 700;
-            font-size: 1.25rem;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: -0.02em;
+            color: black;
             margin-right: 40px;
-            transition: var(--transition-fast);
-        }
-        
-        .logo:hover {
-            color: var(--accent-color);
         }
         
         .nav-menu {
@@ -157,97 +137,30 @@
             list-style: none;
             margin: 0;
             padding: 0;
-            gap: 30px;
         }
         
         .nav-menu a {
             text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            font-size: 0.95rem;
-            position: relative;
-            transition: var(--transition-fast);
+            color: black;
         }
         
-        .nav-menu a:hover {
-            color: var(--accent-color);
-        }
-        
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent-color);
-            transition: var(--transition-fast);
-        }
-        
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-        
-        .nav-menu .btn {
-            padding: 0.5rem 1.25rem;
-            color: var(--btn-text);
-            background-color: var(--btn-bg);
-            border-radius: 4px;
-            font-weight: 500;
-            transition: var(--transition-fast);
-        }
-        
-        .nav-menu .btn:hover {
-            background-color: var(--btn-hover-bg);
-        }
-        
-        .nav-menu .btn::after {
-            display: none;
-        }
-        
-        .theme-toggle {
-            margin-left: 20px;
+        .nav-btn {
             background: none;
-            border: none;
-            color: var(--text-color);
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition-fast);
+            padding: 0.5rem 1.25rem;
+            font-size: 0.9rem;
+            transition: opacity 0.2s ease;
         }
         
-        .theme-toggle:hover {
-            background-color: var(--secondary-bg);
-        }
-        
-        .mode-icon {
-            font-size: 1.2rem;
+        .nav-btn:hover {
+            opacity: 0.7;
         }
         
         @media (max-width: 768px) {
             .nav-menu {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: var(--primary-bg);
-                border-bottom: 1px solid var(--border-color);
-                flex-direction: column;
-                padding: 20px;
-                gap: 15px;
-                transform: translateY(-100%);
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease;
+                display: none;
             }
             .nav-menu.active {
-                transform: translateY(0);
-                opacity: 1;
-                visibility: visible;
+                display: flex;
             }
         }
         
@@ -255,35 +168,14 @@
             display: none;
             flex-direction: column;
             cursor: pointer;
-            z-index: 1001;
-            height: 20px;
-            width: 26px;
-            justify-content: space-between;
         }
         
         .bar {
-            width: 100%;
-            height: 2px;
+            width: 25px;
+            height: 3px;
             background-color: var(--text-color);
-            transition: var(--transition-fast);
-        }
-        
-        .menu-toggle.active .bar:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-        }
-        
-        .menu-toggle.active .bar:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .menu-toggle.active .bar:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
-        }
-        
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-            }
+            margin: 3px 0;
+            transition: 0.4s;
         }
         /* Hero Section */
         
@@ -563,15 +455,11 @@
                     <span class="bar"></span>
                 </div>
                 <ul class="nav-menu">
-                    <li><a href="#dashboard">Dashboard</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#process">Process</a></li>
                     <li><a href="#comparison">Comparison</a></li>
-                    <li><a href="#contact" class="btn">Get Started</a></li>
+                    <li><a href="#contact" class="btn nav-btn">Get Started</a></li>
                 </ul>
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-                    <i class="fa-solid fa-moon mode-icon"></i>
-                </button>
             </nav>
         </div>
     </header>
@@ -1962,4 +1850,4 @@
     .indicator.active {
         background: white;
     }
-</style>
+</style><script>window.scrollTo(0, 0); setTimeout(function() { window.scrollTo(0, 0); },200)</script>

@@ -1,0 +1,2690 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designed For You | Professional Web Development &amp; Design</title>
+    <meta name="description" content="Custom web development and design services tailored to your business needs. Choose from our Starter, Business, or Premium packages.">
+    <meta name="google-site-verification" content="googlecd39c0d973978d74.html">
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+
+    <!-- Updated Font Imports -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* Base Styles */
+        
+         :root {
+            --primary-bg: #ffffff;
+            --secondary-bg: #f7f7f7;
+            --accent-bg: #eef2ff;
+            --text-color: #18181b;
+            --text-light: #52525b;
+            --accent-color: #4f46e5;
+            --accent-light: #6366f1;
+            --hover-color: #4338ca;
+            --border-color: #e4e4e7;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --link-color: #4f46e5;
+            --link-hover: #4338ca;
+            --btn-text: #ffffff;
+            --btn-bg: #4f46e5;
+            --btn-hover-bg: #4338ca;
+            --btn-secondary-bg: #f4f4f5;
+            --btn-secondary-text: #18181b;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+            --transition-fast: 0.15s ease;
+            --transition-normal: 0.3s ease;
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-2xl: 64px;
+            --spacing-3xl: 96px;
+        }
+        /* Modern Additions */
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .section-header {
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .section-subtext {
+            font-size: 1.2rem;
+            font-weight: 300;
+            max-width: 650px;
+            margin: 0 auto var(--spacing-lg);
+            color: var(--text-light);
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Modern Services/Packages Styling */
+        
+        .packages-filter {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .filter-btn.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+        
+        .filter-btn:hover:not(.active) {
+            border-color: var(--accent-color);
+        }
+        
+        .package-card {
+            background-color: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px 30px;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px -15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .package-card.featured {
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 40px -10px rgba(79, 70, 229, 0.15);
+        }
+        
+        .package-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        
+        .package-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background-color: var(--accent-bg);
+            color: var(--accent-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .compare-toggle {
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .compare-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .compare-checkbox {
+            margin: 0;
+        }
+        
+        .comparison-trigger-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .package-comparison-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .package-comparison-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .comparison-modal-content {
+            background-color: var(--primary-bg);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .package-comparison-modal.active .comparison-modal-content {
+            transform: translateY(0);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary-bg);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .close-modal:hover {
+            background-color: var(--border-color);
+        }
+        /* Dark Mode */
+        
+        .dark-mode {
+            --primary-bg: #121212;
+            --secondary-bg: #1e1e1e;
+            --accent-bg: #2d2c5b;
+            --text-color: #f8f8f8;
+            --text-light: #a9a9b2;
+            --border-color: #2a2a2a;
+            --btn-secondary-bg: #2a2a2a;
+            --btn-secondary-text: #f8f8f8;
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode {
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+        }
+        
+        .dark-mode .site-header {
+            background: rgba(18, 18, 18, 0.95);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+        
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.1;
+        }
+        
+        h2 {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        p {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: var(--text-light);
+            margin-bottom: var(--spacing-md);
+        }
+        /* Navigation */
+        
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition-normal);
+        }
+        
+        .site-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+        
+        .logo {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 700;
+            font-size: 1.25rem;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.02em;
+            margin-right: 40px;
+            transition: var(--transition-fast);
+        }
+        
+        .logo:hover {
+            color: var(--accent-color);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: var(--transition-fast);
+        }
+        
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition-fast);
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-menu .btn {
+            padding: 0.5rem 1.25rem;
+            color: var(--btn-text);
+            background-color: var(--btn-bg);
+            border-radius: 4px;
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+        
+        .nav-menu .btn:hover {
+            background-color: var(--btn-hover-bg);
+        }
+        
+        .nav-menu .btn::after {
+            display: none;
+        }
+        
+        .theme-toggle {
+            margin-left: 20px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+        }
+        
+        .theme-toggle:hover {
+            background-color: var(--secondary-bg);
+        }
+        
+        .mode-icon {
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--primary-bg);
+                border-bottom: 1px solid var(--border-color);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+            height: 20px;
+            width: 26px;
+            justify-content: space-between;
+        }
+        
+        .bar {
+            width: 100%;
+            height: 2px;
+            background-color: var(--text-color);
+            transition: var(--transition-fast);
+        }
+        
+        .menu-toggle.active .bar:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        
+        .menu-toggle.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-toggle.active .bar:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+        }
+        /* Hero Section */
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 0;
+            position: relative;
+            background: var(--primary-bg);
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 20%, var(--accent-bg) 0%, transparent 50%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.2s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(to right, var(--text-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            line-height: 1.1;
+        }
+        
+        .hero-subtext {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-light);
+            margin-bottom: var(--spacing-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--spacing-md) var(--spacing-xl);
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: var(--btn-hover-bg);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-outline:hover {
+            background: var(--secondary-bg);
+            border-color: var(--text-color);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 1.5s;
+        }
+        
+        .scroll-text {
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-light);
+        }
+        
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-light);
+            border-bottom: 2px solid var(--text-light);
+            transform: rotate(45deg);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0) rotate(45deg);
+            }
+            40% {
+                transform: translateY(-10px) rotate(45deg);
+            }
+            60% {
+                transform: translateY(-5px) rotate(45deg);
+            }
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 0.8;
+            }
+        }
+        /* Dashboard Section */
+        
+        .dashboard {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--secondary-bg);
+        }
+        
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .dashboard-controls {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            background-color: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .control-btn.active {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+        
+        .control-btn:hover:not(.active) {
+            border-color: var(--accent-color);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .dashboard-card {
+            background-color: var(--primary-bg);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-normal);
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-bg);
+            color: var(--accent-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .card-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .card-trend {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .trend-up {
+            color: var(--success-color);
+        }
+        
+        .trend-down {
+            color: var(--error-color);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 350px;
+            background-color: var(--primary-bg);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            box-shadow: var(--card-shadow);
+        }
+        
+        .project-calculator {
+            background-color: var(--primary-bg);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            box-shadow: var(--card-shadow);
+        }
+        
+        .calculator-header {
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .calculator-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: var(--transition-fast);
+        }
+        
+        .form-control:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+        
+        .calculator-results {
+            background-color: var(--accent-bg);
+            padding: var(--spacing-md);
+            border-radius: 6px;
+            margin-top: var(--spacing-md);
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .result-label {
+            font-weight: 500;
+        }
+        
+        .result-value {
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+        
+        .admin-panel {
+            display: none;
+            background-color: var(--primary-bg);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            box-shadow: var(--card-shadow);
+            margin-top: var(--spacing-xl);
+        }
+        /* Intro Section */
+        
+        .intro {
+            padding-top: var(--spacing-3xl);
+        }
+        
+        .lead {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: var(--spacing-xl);
+            font-weight: 400;
+            line-height: 1.5;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--spacing-md) var(--spacing-xl);
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+        
+        .btn-primary {
+            background: var(--btn-hover-bg);
+            color: var(--btn-hover-text);
+            border: 1px solid var(--btn-hover-bg);
+        }
+        
+        .btn-primary:hover {
+            background: var(--btn-hover-text);
+            color: var(--btn-hover-bg);
+            border-color: var(--btn-hover-bg);
+        }
+        
+        .btn-outline {
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            border: 1px solid var(--btn-border);
+        }
+        
+        .btn-outline:hover {
+            background: var(--btn-hover-bg);
+            color: var(--btn-hover-text);
+            border-color: var(--btn-hover-bg);
+        }
+        /* Carousel */
+        
+        .carousel {
+            max-width: 1000px;
+            margin: var(--spacing-2xl) auto 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .carousel-item {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            background: var(--secondary-bg);
+        }
+        /* Feature Cards */
+        
+        .intro-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+        
+        .feature-card {
+            padding: var(--spacing-xl);
+            background: var(--secondary-bg);
+            border-radius: 8px;
+            transition: transform 0.2s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--accent-color);
+        }
+        /* Sections */
+        
+        section {
+            padding: var(--spacing-3xl) 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--spacing-2xl);
+        }
+        /* Responsive */
+        
+        @media (max-width: 768px) {
+            html {
+                font-size: 14px;
+            }
+            .container {
+                padding: 0 var(--spacing-md);
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            h2 {
+                font-size: 2.25rem;
+            }
+            .lead {
+                font-size: 1.125rem;
+            }
+            .hero {
+                padding: calc(var(--spacing-2xl) + 56px) 0 var(--spacing-xl);
+            }
+            .site-header .container {
+                height: 64px;
+            }
+            .nav-menu {
+                display: none;
+            }
+            .feature-card {
+                padding: var(--spacing-lg);
+            }
+            .logo {
+                font-size: 1rem;
+            }
+        }
+        /* Update link styles globally */
+        
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        a:hover {
+            color: var(--link-hover);
+        }
+        /* Email Button */
+        
+        .btn-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 10px 0;
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            border: 1px solid var(--btn-border);
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-email:hover {
+            background: var(--btn-hover-bg);
+            color: var(--btn-hover-text);
+            transform: translateY(-1px);
+        }
+        /* Footer Links */
+        
+        .footer-links a,
+        .footer-legal a {
+            color: var(--link-color);
+            opacity: 0.8;
+            transition: all 0.2s ease;
+        }
+        
+        .footer-links a:hover,
+        .footer-legal a:hover {
+            opacity: 1;
+            color: var(--link-hover);
+        }
+        /* Social Links */
+        
+        .social-links a {
+            color: var(--link-color);
+            opacity: 0.8;
+            transition: all 0.2s ease;
+        }
+        
+        .social-links a:hover {
+            opacity: 1;
+            color: var(--link-hover);
+        }
+        /* Services/Packages Section */
+        
+        .packages-filter {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .filter-btn.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+        
+        .filter-btn:hover:not(.active) {
+            border-color: var(--accent-color);
+        }
+        
+        .packages-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .package-card {
+            background-color: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px 30px;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px -15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .package-card.featured {
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 40px -10px rgba(79, 70, 229, 0.15);
+        }
+        
+        .package-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        
+        .package-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .package-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background-color: var(--accent-bg);
+            color: var(--accent-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .price {
+            margin: 15px 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .currency {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-right: 5px;
+            align-self: flex-start;
+            margin-top: 5px;
+        }
+        
+        .amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .plus {
+            font-size: 1.5rem;
+            font-weight: 600;
+            align-self: flex-start;
+            margin-top: 5px;
+        }
+        
+        .package-description {
+            color: var(--text-light);
+            min-height: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .package-features {
+            margin-bottom: 30px;
+            flex: 1;
+        }
+        
+        .package-features ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .package-features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            color: var(--text-light);
+        }
+        
+        .package-features i {
+            margin-right: 10px;
+            color: var(--success-color);
+            font-size: 1rem;
+        }
+        
+        .package-cta {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .btn-package {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .compare-toggle {
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .compare-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .compare-checkbox {
+            margin: 0;
+        }
+        
+        .comparison-trigger-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .package-comparison-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .package-comparison-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .comparison-modal-content {
+            background-color: var(--primary-bg);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .package-comparison-modal.active .comparison-modal-content {
+            transform: translateY(0);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary-bg);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .close-modal:hover {
+            background-color: var(--border-color);
+        }
+        
+        .comparison-wrapper {
+            margin-top: 20px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .comparison-table th {
+            font-weight: 600;
+            color: var(--text-color);
+            background-color: var(--secondary-bg);
+        }
+        
+        .comparison-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+        
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+        /* Dark Mode */
+        
+        .dark-mode {
+            --primary-bg: #121212;
+            --secondary-bg: #1e1e1e;
+            --accent-bg: #2d2c5b;
+            --text-color: #f8f8f8;
+            --text-light: #a9a9b2;
+            --border-color: #2a2a2a;
+            --btn-secondary-bg: #2a2a2a;
+            --btn-secondary-text: #f8f8f8;
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode {
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+        }
+        
+        .dark-mode .site-header {
+            background: rgba(18, 18, 18, 0.95);
+        }
+        /* Animations and Transitions */
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        /* Tooltip */
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--text-color);
+            color: var(--primary-bg);
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+        
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--text-color) transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        /* Form Success */
+        
+        .form-success {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .form-success i {
+            font-size: 3rem;
+            color: var(--success-color);
+            margin-bottom: 20px;
+        }
+        /* Additional Responsive Styles */
+        
+        @media (max-width: 768px) {
+            .packages-filter {
+                gap: var(--spacing-xs);
+            }
+            .filter-btn {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            .packages-container {
+                grid-template-columns: 1fr;
+            }
+            .package-card {
+                padding: 30px 20px;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .dashboard-controls {
+                flex-wrap: wrap;
+            }
+            .calculator-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (mobileMenu) {
+                mobileMenu.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+            }
+
+            // Theme Toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            const modeIcon = themeToggle ? themeToggle.querySelector('.mode-icon') : null;
+
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                if (modeIcon) {
+                    modeIcon.classList.remove('fa-moon');
+                    modeIcon.classList.add('fa-sun');
+                }
+            }
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    document.body.classList.toggle('dark-mode');
+
+                    // Update icon
+                    if (document.body.classList.contains('dark-mode')) {
+                        modeIcon.classList.remove('fa-moon');
+                        modeIcon.classList.add('fa-sun');
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        modeIcon.classList.remove('fa-sun');
+                        modeIcon.classList.add('fa-moon');
+                        localStorage.setItem('theme', 'light');
+                    }
+                });
+            }
+
+            // Performance Chart
+            const ctx = document.getElementById('performanceChart');
+            if (ctx) {
+                const performanceChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Visitors',
+                            data: [1500, 2500, 3200, 4700, 5900, 8000],
+                            borderColor: '#4f46e5',
+                            backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }, {
+                            label: 'Conversions',
+                            data: [20, 40, 60, 100, 160, 240],
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    drawBorder: false
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        },
+                        interaction: {
+                            mode: 'nearest',
+                            axis: 'x',
+                            intersect: false
+                        }
+                    }
+                });
+
+                // Dashboard Period Controls
+                const periodButtons = document.querySelectorAll('.control-btn[data-period]');
+                if (periodButtons.length > 0) {
+                    periodButtons.forEach(button => {
+                        button.addEventListener('click', function() {
+                            // Remove active class from all buttons
+                            periodButtons.forEach(btn => btn.classList.remove('active'));
+                            // Add active class to clicked button
+                            this.classList.add('active');
+
+                            // Update chart data based on selected period
+                            const period = this.dataset.period;
+                            updateChartData(performanceChart, period);
+                            updateMetricCards(period);
+                        });
+                    });
+                }
+
+                // Function to update chart data
+                function updateChartData(chart, period) {
+                    // Sample data for different periods
+                    const data = {
+                        monthly: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                            visitors: [1500, 2500, 3200, 4700, 5900, 8000],
+                            conversions: [20, 40, 60, 100, 160, 240]
+                        },
+                        quarterly: {
+                            labels: ['Q1 2023', 'Q2 2023', 'Q3 2023', 'Q4 2023'],
+                            visitors: [7200, 14600, 21000, 32000],
+                            conversions: [120, 360, 600, 950]
+                        },
+                        yearly: {
+                            labels: ['2020', '2021', '2022', '2023'],
+                            visitors: [25000, 45000, 68000, 95000],
+                            conversions: [450, 850, 1250, 2300]
+                        }
+                    };
+
+                    // Update chart data
+                    chart.data.labels = data[period].labels;
+                    chart.data.datasets[0].data = data[period].visitors;
+                    chart.data.datasets[1].data = data[period].conversions;
+
+                    // Update chart
+                    chart.update();
+                }
+
+                // Function to update metric cards
+                function updateMetricCards(period) {
+                    const visitorValue = document.getElementById('visitor-value');
+                    const conversionValue = document.getElementById('conversion-value');
+                    const sessionValue = document.getElementById('session-value');
+
+                    // Sample data for different periods
+                    const data = {
+                        monthly: {
+                            visitorGrowth: '+35%',
+                            conversionRate: '4.8%',
+                            sessionDuration: '3:24'
+                        },
+                        quarterly: {
+                            visitorGrowth: '+28%',
+                            conversionRate: '5.2%',
+                            sessionDuration: '3:45'
+                        },
+                        yearly: {
+                            visitorGrowth: '+65%',
+                            conversionRate: '6.1%',
+                            sessionDuration: '4:12'
+                        }
+                    };
+
+                    // Update values with animation
+                    animateValue(visitorValue, data[period].visitorGrowth);
+                    animateValue(conversionValue, data[period].conversionRate);
+                    animateValue(sessionValue, data[period].sessionDuration);
+                }
+
+                // Function to animate value changes
+                function animateValue(element, newValue) {
+                    if (!element) return;
+
+                    element.style.opacity = '0';
+
+                    setTimeout(() => {
+                        element.textContent = newValue;
+                        element.style.opacity = '1';
+                    }, 300);
+                }
+            }
+
+            // ROI Calculator Functionality
+            const monthlyVisitors = document.getElementById('monthly-visitors');
+            const conversionRate = document.getElementById('conversion-rate');
+            const avgOrderValue = document.getElementById('avg-order-value');
+            const packageType = document.getElementById('package-type');
+
+            // Results elements
+            const currentRevenue = document.getElementById('current-revenue');
+            const projectedRevenue = document.getElementById('projected-revenue');
+            const revenueIncrease = document.getElementById('revenue-increase');
+            const estimatedRoi = document.getElementById('estimated-roi');
+
+            // Update results when inputs change
+            const calculatorInputs = [monthlyVisitors, conversionRate, avgOrderValue, packageType];
+            calculatorInputs.forEach(input => {
+                if (input) {
+                    input.addEventListener('input', updateCalculator);
+                }
+            });
+
+            // Initial calculation
+            if (calculatorInputs.every(input => input !== null)) {
+                updateCalculator();
+            }
+
+            function updateCalculator() {
+                // Get input values
+                const visitors = parseFloat(monthlyVisitors.value) || 0;
+                const rate = parseFloat(conversionRate.value) || 0;
+                const orderValue = parseFloat(avgOrderValue.value) || 0;
+                const package = packageType.value;
+
+                // Calculate current monthly revenue
+                const current = visitors * (rate / 100) * orderValue;
+
+                // Calculate projected improvements based on package
+                let projectedRate = rate;
+                let projectedVisitors = visitors;
+                let packageCost = 0;
+
+                switch (package) {
+                    case 'starter':
+                        projectedRate = rate * 1.2; // 20% increase in conversion rate
+                        projectedVisitors = visitors * 1.15; // 15% increase in visitors
+                        packageCost = 1000;
+                        break;
+                    case 'business':
+                        projectedRate = rate * 1.5; // 50% increase in conversion rate
+                        projectedVisitors = visitors * 1.3; // 30% increase in visitors
+                        packageCost = 2000;
+                        break;
+                    case 'premium':
+                        projectedRate = rate * 1.8; // 80% increase in conversion rate
+                        projectedVisitors = visitors * 1.5; // 50% increase in visitors
+                        packageCost = 3500;
+                        break;
+                }
+
+                // Calculate projected monthly revenue
+                const projected = projectedVisitors * (projectedRate / 100) * orderValue;
+                const increase = projected - current;
+
+                // Calculate ROI for first 3 months
+                const threeMonthIncrease = increase * 3;
+                const roi = (threeMonthIncrease / packageCost) * 100;
+
+                // Update result elements
+                currentRevenue.textContent = '$' + current.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                projectedRevenue.textContent = '$' + projected.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                revenueIncrease.textContent = '$' + increase.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                estimatedRoi.textContent = roi.toFixed(0) + '%';
+            }
+
+            // Package filtering
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const packageCards = document.querySelectorAll('.package-card');
+
+            if (filterButtons.length > 0 && packageCards.length > 0) {
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        // Remove active class from all buttons
+                        filterButtons.forEach(btn => btn.classList.remove('active'));
+                        // Add active class to clicked button
+                        this.classList.add('active');
+
+                        const filter = this.dataset.filter;
+
+                        // Show/hide package cards based on filter
+                        packageCards.forEach(card => {
+                            if (filter === 'all' || card.dataset.category.includes(filter)) {
+                                card.style.display = 'flex';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+            }
+
+            // Package Comparison
+            const compareCheckboxes = document.querySelectorAll('.compare-checkbox');
+            const showComparisonBtn = document.getElementById('show-comparison');
+            const comparisonModal = document.getElementById('package-comparison-modal');
+            const closeModalBtn = document.querySelector('.close-modal');
+            const comparisonWrapper = document.querySelector('.comparison-wrapper');
+
+            if (compareCheckboxes.length > 0 && showComparisonBtn) {
+                compareCheckboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        // Count selected packages
+                        const selectedCount = document.querySelectorAll('.compare-checkbox:checked').length;
+
+                        // Enable button if at least 2 packages are selected
+                        if (selectedCount >= 2) {
+                            showComparisonBtn.removeAttribute('disabled');
+                        } else {
+                            showComparisonBtn.setAttribute('disabled', true);
+                        }
+                    });
+                });
+
+                // Show comparison modal when button is clicked
+                showComparisonBtn.addEventListener('click', function() {
+                    const selectedPackages = [];
+
+                    // Get selected packages
+                    compareCheckboxes.forEach(checkbox => {
+                        if (checkbox.checked) {
+                            selectedPackages.push(checkbox.dataset.package);
+                        }
+                    });
+
+                    if (selectedPackages.length >= 2) {
+                        generateComparisonTable(selectedPackages);
+                        comparisonModal.classList.add('active');
+                    }
+                });
+
+                // Close modal when X button is clicked
+                if (closeModalBtn) {
+                    closeModalBtn.addEventListener('click', function() {
+                        comparisonModal.classList.remove('active');
+                    });
+                }
+
+                // Close modal when clicking outside
+                comparisonModal.addEventListener('click', function(e) {
+                    if (e.target === comparisonModal) {
+                        comparisonModal.classList.remove('active');
+                    }
+                });
+            }
+
+            // FAQ Toggle
+            const faqItems = document.querySelectorAll('.faq-question');
+            if (faqItems.length > 0) {
+                faqItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const parent = item.parentElement;
+                        parent.classList.toggle('active');
+
+                        const icon = item.querySelector('.faq-toggle i');
+                        if (icon) {
+                            if (icon.classList.contains('fa-plus')) {
+                                icon.classList.remove('fa-plus');
+                                icon.classList.add('fa-minus');
+                            } else {
+                                icon.classList.remove('fa-minus');
+                                icon.classList.add('fa-plus');
+                            }
+                        }
+                    });
+                });
+            }
+
+            // Form Submission
+            const projectForm = document.getElementById('project-form');
+            if (projectForm) {
+                projectForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Here you would normally handle form submission via AJAX
+                    // For demo purposes, we'll just show a success message
+                    this.innerHTML = '<div class="form-success"><i class="fas fa-check-circle"></i><h3>Thank you for your message!</h3><p>We\'ll be in touch within 24 hours to discuss your project.</p></div>';
+
+                    // Log form submission in admin panel (if admin)
+                    updateAdminPanel('form');
+                });
+            }
+
+            // Admin Panel (visible only to admins)
+            function isAdmin() {
+                // This would normally check for admin credentials
+                // For demo purposes, let's use a URL parameter
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.has('admin');
+            }
+
+            const adminPanel = document.getElementById('admin-panel');
+            if (adminPanel && isAdmin()) {
+                adminPanel.style.display = 'block';
+            }
+
+            function updateAdminPanel(action) {
+                if (!isAdmin()) return;
+
+                // This would normally update metrics in real-time
+                // For demo purposes, just log to console
+                console.log('Admin action logged:', action);
+            }
+
+            // Scroll animations
+            const animatedElements = document.querySelectorAll('.fade-in-up');
+            if (animatedElements.length > 0) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('animate');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1
+                });
+
+                animatedElements.forEach(element => {
+                    observer.observe(element);
+                });
+            }
+        });
+    </script>
+
+    <!-- Navigation -->
+    </head><body><header class="site-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Designed For You</a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#comparison">Comparison</a></li>
+                    <li><a href="#contact" class="btn">Get Started</a></li>
+                </ul>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fa-solid fa-moon mode-icon"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Web Solutions Designed For You</h1>
+                <p class="hero-subtext">Creating exceptional digital experiences that elevate your brand and drive measurable business results.</p>
+                <div class="hero-buttons">
+                    <a href="#services" class="btn btn-primary">Explore Services</a>
+                    <a href="#contact" class="btn btn-outline">Contact Us</a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span class="scroll-text">Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard" id="dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <h2>Performance Insights</h2>
+                <p class="section-subtext">Track how your website performs across key metrics and visualize potential growth</p>
+            </div>
+
+            <div class="dashboard-controls">
+                <button class="control-btn active" data-period="monthly">Monthly</button>
+                <button class="control-btn" data-period="quarterly">Quarterly</button>
+                <button class="control-btn" data-period="yearly">Yearly</button>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Visitor Growth</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="visitor-value">+35%</div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> <span>12% vs previous period</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Conversion Rate</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="conversion-value">4.8%</div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> <span>1.2% vs previous period</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Avg. Session Duration</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="session-value">3:24</div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> <span>18% vs previous period</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="performanceChart" width="1072" height="286" style="display: block; box-sizing: border-box; height: 286px; width: 1072px;"></canvas>
+            </div>
+
+            <div class="project-calculator">
+                <div class="calculator-header">
+                    <h3>Project ROI Calculator</h3>
+                    <p>Estimate the potential impact of your website investment</p>
+                </div>
+
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="monthly-visitors">Monthly Visitors</label>
+                        <input type="number" id="monthly-visitors" class="form-control" value="5000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="conversion-rate">Current Conversion Rate (%)</label>
+                        <input type="number" id="conversion-rate" class="form-control" value="1.5" step="0.1" min="0" max="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="avg-order-value">Avg. Order Value ($)</label>
+                        <input type="number" id="avg-order-value" class="form-control" value="120">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="package-type">Package Type</label>
+                        <select id="package-type" class="form-control">
+                            <option value="starter">Starter ($1,000)</option>
+                            <option value="business" selected="">Business ($2,000)</option>
+                            <option value="premium">Premium ($3,500)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="calculator-results">
+                    <div class="result-item">
+                        <div class="result-label">Current Monthly Revenue</div>
+                        <div class="result-value" id="current-revenue">$9,000</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Projected Monthly Revenue</div>
+                        <div class="result-value" id="projected-revenue">$17,550</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Monthly Increase</div>
+                        <div class="result-value" id="revenue-increase">$8,550</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Estimated ROI (3 months)</div>
+                        <div class="result-value" id="estimated-roi">1283%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Panel (hidden by default) -->
+            <div class="admin-panel" id="admin-panel">
+                <h3>Admin Analytics</h3>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Page Views Today</h3>
+                            <div class="card-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">134</div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Form Submissions</h3>
+                            <div class="card-icon">
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">12</div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Bounce Rate</h3>
+                            <div class="card-icon">
+                                <i class="fas fa-undo"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">28%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="intro" id="intro">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Crafting Digital Experiences That Matter</h2>
+                <p class="section-subtext">We blend design, technology, and strategy to create websites that deliver results.</p>
+            </div>
+            <div class="intro-features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Aesthetic Design</h3>
+                    <p>Visually stunning websites that capture your brand's essence and resonate with your audience.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Clean Code</h3>
+                    <p>Performance-optimized websites built with industry best practices for speed and reliability.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Responsive Design</h3>
+                    <p>Seamless experiences across all devices, ensuring you never lose a visitor.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>SEO Friendly</h3>
+                    <p>Built-in optimization that helps your website rank higher in search results.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Our Service Packages</h2>
+                <p class="section-subtext">Tailored solutions to match your business needs and goals.</p>
+            </div>
+
+            <div class="packages-filter">
+                <button class="filter-btn active" data-filter="all">All Packages</button>
+                <button class="filter-btn" data-filter="business">For Business</button>
+                <button class="filter-btn" data-filter="personal">For Personal</button>
+                <button class="filter-btn" data-filter="ecommerce">For E-Commerce</button>
+            </div>
+
+            <div class="packages-container">
+                <!-- Starter Package -->
+                <div class="package-card" data-category="personal business">
+                    <div class="package-header">
+                        <div class="package-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Starter Website</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">1,000</span>
+                        </div>
+                        <p class="package-description">Perfect for small businesses or personal brands looking to establish their online presence.</p>
+                    </div>
+                    <div class="package-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> 1 page with 5 sections</li>
+                            <li><i class="fas fa-check"></i> Choice from 3 pre-designed themes</li>
+                            <li><i class="fas fa-check"></i> Basic SEO setup</li>
+                            <li><i class="fas fa-check"></i> Contact form integration</li>
+                            <li><i class="fas fa-check"></i> Social media integration</li>
+                            <li><i class="fas fa-check"></i> Google Maps integration</li>
+                            <li><i class="fas fa-check"></i> One revision round</li>
+                            <li><i class="fas fa-check"></i> Delivery in 5-7 days</li>
+                        </ul>
+                    </div>
+                    <div class="package-cta">
+                        <a href="#contact" class="btn btn-outline btn-package">Get Started</a>
+                    </div>
+                    <div class="compare-toggle">
+                        <label class="compare-label">
+                            <input type="checkbox" class="compare-checkbox" data-package="starter">
+                            <span class="compare-text">Add to compare</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Business Package -->
+                <div class="package-card featured" data-category="business ecommerce">
+                    <div class="package-badge">Most Popular</div>
+                    <div class="package-header">
+                        <div class="package-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3>Business Website</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">2,000</span>
+                        </div>
+                        <p class="package-description">Comprehensive solution for established businesses seeking greater online impact.</p>
+                    </div>
+                    <div class="package-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Up to 3 custom pages</li>
+                            <li><i class="fas fa-check"></i> Custom design tailored to your brand</li>
+                            <li><i class="fas fa-check"></i> Advanced SEO implementation</li>
+                            <li><i class="fas fa-check"></i> Google Analytics setup</li>
+                            <li><i class="fas fa-check"></i> Interactive elements and animations</li>
+                            <li><i class="fas fa-check"></i> Two revision rounds</li>
+                            <li><i class="fas fa-check"></i> Delivery in 10-14 days</li>
+                        </ul>
+                    </div>
+                    <div class="package-cta">
+                        <a href="#contact" class="btn btn-primary btn-package">Get Started</a>
+                    </div>
+                    <div class="compare-toggle">
+                        <label class="compare-label">
+                            <input type="checkbox" class="compare-checkbox" data-package="business">
+                            <span class="compare-text">Add to compare</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Premium Package -->
+                <div class="package-card" data-category="business ecommerce">
+                    <div class="package-header">
+                        <div class="package-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3>Premium Website</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">3,500</span>
+                            <span class="plus">+</span>
+                        </div>
+                        <p class="package-description">Enterprise-grade solution with advanced features for maximum online performance.</p>
+                    </div>
+                    <div class="package-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Fully custom website (up to 9 pages)</li>
+                            <li><i class="fas fa-check"></i> E-commerce functionality</li>
+                            <li><i class="fas fa-check"></i> CRM integration</li>
+                            <li><i class="fas fa-check"></i> Advanced SEO strategies</li>
+                            <li><i class="fas fa-check"></i> Performance optimization</li>
+                            <li><i class="fas fa-check"></i> Lead capture functionality</li>
+                            <li><i class="fas fa-check"></i> Three revision rounds</li>
+                            <li><i class="fas fa-check"></i> Delivery in 3-4 weeks</li>
+                        </ul>
+                    </div>
+                    <div class="package-cta">
+                        <a href="#contact" class="btn btn-outline btn-package">Get Started</a>
+                    </div>
+                    <div class="compare-toggle">
+                        <label class="compare-label">
+                            <input type="checkbox" class="compare-checkbox" data-package="premium">
+                            <span class="compare-text">Add to compare</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-trigger-container">
+                <button id="show-comparison" class="btn btn-primary" disabled="">Compare Selected Packages</button>
+            </div>
+
+            <div class="package-comparison-modal" id="package-comparison-modal">
+                <div class="comparison-modal-content">
+                    <button class="close-modal"><i class="fas fa-times"></i></button>
+                    <h3>Package Comparison</h3>
+                    <div class="comparison-wrapper">
+                        <!-- Comparison table will be filled by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Package Comparison Section -->
+    <section class="comparison" id="comparison">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Package Comparison</h2>
+                <p class="section-subtext">Find the perfect solution for your business needs</p>
+            </div>
+
+            <div class="comparison-table-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Starter<br>$1,000</th>
+                            <th>Business<br>$2,000</th>
+                            <th>Premium<br>$3,500+</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Number of Pages</td>
+                            <td>1 page</td>
+                            <td>Up to 3 pages</td>
+                            <td>Up to 9 pages</td>
+                        </tr>
+                        <tr>
+                            <td>Design Type</td>
+                            <td>3 pre-designed themes</td>
+                            <td>Custom design</td>
+                            <td>Fully custom design</td>
+                        </tr>
+                        <tr>
+                            <td>SEO Features</td>
+                            <td>Basic setup</td>
+                            <td>Advanced implementation</td>
+                            <td>Advanced strategies</td>
+                        </tr>
+                        <tr>
+                            <td>Integrations</td>
+                            <td>Contact form, Social media, Google Maps</td>
+                            <td>All Starter features + Google Analytics</td>
+                            <td>All Business features + E-commerce, CRM</td>
+                        </tr>
+                        <tr>
+                            <td>Revision Rounds</td>
+                            <td>1 round</td>
+                            <td>2 rounds</td>
+                            <td>3 rounds</td>
+                        </tr>
+                        <tr>
+                            <td>Delivery Time</td>
+                            <td>5-7 days</td>
+                            <td>10-14 days</td>
+                            <td>3-4 weeks</td>
+                        </tr>
+                        <tr>
+                            <td>Performance Optimization</td>
+                            <td>Basic</td>
+                            <td>Standard</td>
+                            <td>Advanced</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a href="#contact" class="btn btn-sm">Select</a></td>
+                            <td><a href="#contact" class="btn btn-sm featured-btn">Select</a></td>
+                            <td><a href="#contact" class="btn btn-sm">Select</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Our Design Process</h2>
+                <p class="section-subtext">How we transform your vision into digital reality</p>
+            </div>
+
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Discovery</h3>
+                        <p>We begin by understanding your business, goals, target audience, and competitors to establish a solid foundation.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Planning</h3>
+                        <p>We develop a strategic roadmap, including sitemap, wireframes, and content structure tailored to your objectives.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Design</h3>
+                        <p>Our designers create visually compelling mockups that align with your brand identity and user expectations.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Development</h3>
+                        <p>We transform designs into functional, responsive websites using clean, optimized code for optimal performance.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">05</div>
+                    <div class="step-content">
+                        <h3>Testing</h3>
+                        <p>Thorough quality assurance across devices, browsers, and platforms ensures a flawless user experience.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">06</div>
+                    <div class="step-content">
+                        <h3>Launch</h3>
+                        <p>After your approval, we deploy your website and provide the necessary training and documentation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Digital Presence?</h2>
+                <p>Book a free consultation with our team and discover how we can help you achieve your business goals.</p>
+                <a href="#contact" class="btn btn-cta">Get Your Free Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Start Your Project Today</h2>
+                <p class="section-subtext">Tell us about your project and we'll get back to you within 24 hours</p>
+            </div>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>Have questions before getting started? Reach out directly:</p>
+
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:hintonstrategic@gmail.com" class="btn btn-email"><i class="fas fa-envelope"></i> Email Us</a>
+                    </div>
+
+
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form id="project-form">
+                        <div class="form-group">
+                            <label for="name">Full Name*</label>
+                            <input type="text" id="name" name="name" required="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address*</label>
+                            <input type="email" id="email" name="email" required="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="package">Interested Package</label>
+                            <select id="package" name="package">
+                                <option value="Not sure yet">Not sure yet</option>
+                                <option value="Starter Website">Starter Website ($1,000)</option>
+                                <option value="Business Website">Business Website ($2,000)</option>
+                                <option value="Premium Website">Premium Website ($3,500+)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="message">Project Details*</label>
+                            <textarea id="message" name="message" rows="5" required=""></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <button type="submit" class="btn btn-submit">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Frequently Asked Questions</h2>
+                <p class="section-subtext">Everything you need to know about our services</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How long does it take to complete a website?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Project timelines vary depending on the package and complexity. Our Starter Websites typically take 5-7 days, Business Websites 10-14 days, and Premium Websites 3-4 weeks. We'll provide a specific timeline during our initial consultation.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do I need to provide content for my website?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you'll need to provide the core content (text and images) for your website. However, we can offer guidance on content strategy and structure. For premium clients, we also offer copywriting and content creation services at
+                            an additional cost.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do you offer website maintenance services?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer monthly maintenance plans to keep your website secure, updated, and performing optimally. These plans include regular backups, security monitoring, and technical support. We'll discuss these options after your project
+                            is completed.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I update the website myself after it's completed?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We build websites with user-friendly content management systems that allow you to make basic updates yourself. We also provide training and documentation to help you manage your content confidently.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What payment methods do you accept?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept credit cards, PayPal, and bank transfers. We typically require a 50% deposit to begin the project, with the remaining balance due upon completion before the website goes live.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Designed For You</h3>
+                    <p>Creating exceptional digital experiences that drive results.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#process">Our Process</a></li>
+                        <li><a href="#comparison">Package Comparison</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <a href="mailto:hintonstrategic@gmail.com" class="btn btn-email"><i class="fas fa-envelope"></i> Email Us</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2025 Designed For You. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Generate comparison table function -->
+    <script>
+        function generateComparisonTable(selectedPackages) {
+            if (!comparisonWrapper) return;
+
+            // Package data
+            const packageData = {
+                starter: {
+                    name: 'Starter Website',
+                    price: '$1,000',
+                    pages: '1 page with 5 sections',
+                    design: '3 pre-designed themes',
+                    seo: 'Basic setup',
+                    integrations: 'Contact form, Social media, Google Maps',
+                    revisions: '1 round',
+                    delivery: '5-7 days',
+                    performance: 'Basic'
+                },
+                business: {
+                    name: 'Business Website',
+                    price: '$2,000',
+                    pages: 'Up to 3 custom pages',
+                    design: 'Custom design',
+                    seo: 'Advanced implementation',
+                    integrations: 'All Starter features + Google Analytics',
+                    revisions: '2 rounds',
+                    delivery: '10-14 days',
+                    performance: 'Standard'
+                },
+                premium: {
+                    name: 'Premium Website',
+                    price: '$3,500+',
+                    pages: 'Up to 9 pages',
+                    design: 'Fully custom design',
+                    seo: 'Advanced strategies',
+                    integrations: 'All Business features + E-commerce, CRM',
+                    revisions: '3 rounds',
+                    delivery: '3-4 weeks',
+                    performance: 'Advanced'
+                }
+            };
+
+            // Create table
+            let tableHTML = `
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+            `;
+
+            // Add columns for selected packages
+            selectedPackages.forEach(packageName => {
+                tableHTML += `<th>${packageData[packageName].name}<br>${packageData[packageName].price}</th>`;
+            });
+
+            tableHTML += `
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            // Add rows for features
+            const features = [{
+                key: 'pages',
+                label: 'Number of Pages'
+            }, {
+                key: 'design',
+                label: 'Design Type'
+            }, {
+                key: 'seo',
+                label: 'SEO Features'
+            }, {
+                key: 'integrations',
+                label: 'Integrations'
+            }, {
+                key: 'revisions',
+                label: 'Revision Rounds'
+            }, {
+                key: 'delivery',
+                label: 'Delivery Time'
+            }, {
+                key: 'performance',
+                label: 'Performance Optimization'
+            }];
+
+            features.forEach(feature => {
+                tableHTML += `
+                    <tr>
+                        <td>${feature.label}</td>
+                `;
+
+                selectedPackages.forEach(packageName => {
+                    tableHTML += `<td>${packageData[packageName][feature.key]}</td>`;
+                });
+
+                tableHTML += `</tr>`;
+            });
+
+            // Add buttons
+            tableHTML += `
+                <tr>
+                    <td></td>
+            `;
+
+            selectedPackages.forEach(packageName => {
+                const btnClass = packageName === 'business' ? 'btn-primary' : 'btn-outline';
+                tableHTML += `<td><a href="#contact" class="btn ${btnClass} btn-sm">Select</a></td>`;
+            });
+
+            tableHTML += `
+                    </tr>
+                </tbody>
+            </table>
+            `;
+
+            comparisonWrapper.innerHTML = tableHTML;
+        }
+    </script>
+    
+
+</body></html>
