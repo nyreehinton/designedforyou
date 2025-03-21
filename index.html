@@ -1,292 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Designed For You | Professional Web Development & Design</title>
-    <meta name="description" content="Custom web development and design services tailored to your business needs. Choose from our Starter, Business, or Premium packages.">
-    <meta name="google-site-verification" content="googlecd39c0d973978d74.html" />
-
-    <!-- Preconnect to Google Fonts -->
+    <title>Designed For You | Web Development Services</title>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- Updated Font Imports -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    
+    <!-- TailwindCSS CDN (for demo purposes) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
     <style>
-        /* Base Styles */
-        
-         :root {
-            --primary-bg: #ffffff;
-            --secondary-bg: #f7f7f7;
-            --accent-bg: #eef2ff;
-            --text-color: #18181b;
-            --text-light: #52525b;
-            --accent-color: #4f46e5;
-            --accent-light: #6366f1;
-            --hover-color: #4338ca;
-            --border-color: #e4e4e7;
-            --success-color: #10b981;
-            --error-color: #ef4444;
-            --warning-color: #f59e0b;
-            --link-color: #4f46e5;
-            --link-hover: #4338ca;
-            --btn-text: #ffffff;
-            --btn-bg: #4f46e5;
-            --btn-hover-bg: #4338ca;
-            --btn-secondary-bg: #f4f4f5;
-            --btn-secondary-text: #18181b;
-            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
-            --transition-fast: 0.15s ease;
-            --transition-normal: 0.3s ease;
-            --spacing-xs: 8px;
-            --spacing-sm: 16px;
-            --spacing-md: 24px;
-            --spacing-lg: 32px;
-            --spacing-xl: 48px;
-            --spacing-2xl: 64px;
-            --spacing-3xl: 96px;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        /* Additional styles not covered by Tailwind */
         html {
             scroll-behavior: smooth;
-            font-size: 16px;
         }
         
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--primary-bg);
-            color: var(--text-color);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--spacing-lg);
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
         }
         
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
+        .animate-delay-100 {
+            animation-delay: 100ms;
         }
         
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            margin-bottom: var(--spacing-lg);
-            line-height: 1.1;
+        .animate-delay-200 {
+            animation-delay: 200ms;
         }
         
-        h2 {
-            font-size: 3rem;
-            margin-bottom: var(--spacing-lg);
+        .animate-delay-300 {
+            animation-delay: 300ms;
         }
         
-        h3 {
-            font-size: 1.5rem;
-            margin-bottom: var(--spacing-md);
+        /* Service card hover effect */
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        p {
-            font-size: 1.125rem;
-            line-height: 1.7;
-            color: var(--text-light);
-            margin-bottom: var(--spacing-md);
-        }
-        /* Navigation */
-        
-        .site-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
-            transition: var(--transition-normal);
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         
-        .site-header .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 70px;
-        }
-        
-        .logo {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 700;
-            font-size: 1.25rem;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: -0.02em;
-            margin-right: 40px;
-            transition: var(--transition-fast);
-        }
-        
-        .logo:hover {
-            color: var(--accent-color);
-        }
-        
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            gap: 30px;
-        }
-        
-        .nav-menu a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            font-size: 0.95rem;
-            position: relative;
-            transition: var(--transition-fast);
-        }
-        
-        .nav-menu a:hover {
-            color: var(--accent-color);
-        }
-        
-        .nav-menu a::after {
+        /* Processing step indicators */
+        .step-indicator::before {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent-color);
-            transition: var(--transition-fast);
+            top: 0;
+            left: 24px;
+            bottom: 0;
+            width: 1px;
+            background-color: #e5e7eb;
+            z-index: -1;
         }
         
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-        
-        .nav-menu .btn {
-            padding: 0.5rem 1.25rem;
-            color: var(--btn-text);
-            background-color: var(--btn-bg);
-            border-radius: 4px;
-            font-weight: 500;
-            transition: var(--transition-fast);
-        }
-        
-        .nav-menu .btn:hover {
-            background-color: var(--btn-hover-bg);
-        }
-        
-        .nav-menu .btn::after {
+        .process-step:last-child .step-indicator::before {
             display: none;
         }
         
-        .theme-toggle {
-            margin-left: 20px;
-            background: none;
-            border: none;
-            color: var(--text-color);
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition-fast);
+        /* Form inputs focus styles */
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 1px #3b82f6;
         }
         
-        .theme-toggle:hover {
-            background-color: var(--secondary-bg);
-        }
-        
-        .mode-icon {
-            font-size: 1.2rem;
-        }
-        
-        @media (max-width: 768px) {
-            .nav-menu {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: var(--primary-bg);
-                border-bottom: 1px solid var(--border-color);
-                flex-direction: column;
-                padding: 20px;
-                gap: 15px;
-                transform: translateY(-100%);
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease;
-            }
-            .nav-menu.active {
-                transform: translateY(0);
-                opacity: 1;
-                visibility: visible;
-            }
-        }
-        
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            z-index: 1001;
-            height: 20px;
-            width: 26px;
-            justify-content: space-between;
-        }
-        
-        .bar {
-            width: 100%;
-            height: 2px;
-            background-color: var(--text-color);
-            transition: var(--transition-fast);
-        }
-        
-        .menu-toggle.active .bar:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-        }
-        
-        .menu-toggle.active .bar:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .menu-toggle.active .bar:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
-        }
-        
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-            }
-        }
-        /* Hero Section */
-        
+        /* Hero section styles from index.html */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -332,1634 +135,1247 @@
             animation-delay: 1.5s;
         }
         
-        @keyframes fadeIn {
-            to {
-                opacity: 0.6;
-            }
-        }
-        /* Hide other hero elements initially */
-        
-        .lead,
-        .hero-buttons,
-        .hero-image {
-            display: none;
-        }
-        /* Adjust the next section to have proper spacing */
-        
-        .intro {
-            padding-top: var(--spacing-3xl);
+        .scroll-text {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #a1a1aa;
         }
         
-        .lead {
-            font-size: 1.25rem;
-            color: var(--text-light);
-            margin-bottom: var(--spacing-xl);
-            font-weight: 400;
-            line-height: 1.5;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: var(--spacing-md);
-            justify-content: center;
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            padding: var(--spacing-md) var(--spacing-xl);
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-        
-        .btn:hover {
-            transform: translateY(-1px);
-        }
-        
-        .btn-primary {
-            background: var(--btn-hover-bg);
-            color: var(--btn-hover-text);
-            border: 1px solid var(--btn-hover-bg);
-        }
-        
-        .btn-primary:hover {
-            background: var(--btn-hover-text);
-            color: var(--btn-hover-bg);
-            border-color: var(--btn-hover-bg);
-        }
-        
-        .btn-outline {
-            background: var(--btn-bg);
-            color: var(--btn-text);
-            border: 1px solid var(--btn-border);
-        }
-        
-        .btn-outline:hover {
-            background: var(--btn-hover-bg);
-            color: var(--btn-hover-text);
-            border-color: var(--btn-hover-bg);
-        }
-        /* Carousel */
-        
-        .carousel {
-            max-width: 1000px;
-            margin: var(--spacing-2xl) auto 0;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .carousel-item {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            background: var(--secondary-bg);
-        }
-        /* Feature Cards */
-        
-        .intro-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: var(--spacing-xl);
-            margin-top: var(--spacing-2xl);
-        }
-        
-        .feature-card {
-            padding: var(--spacing-xl);
-            background: var(--secondary-bg);
-            border-radius: 8px;
-            transition: transform 0.2s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-4px);
-        }
-        
-        .feature-icon {
-            font-size: 1.5rem;
-            margin-bottom: var(--spacing-md);
-            color: var(--accent-color);
-        }
-        /* Sections */
-        
-        section {
-            padding: var(--spacing-3xl) 0;
-        }
-        
-        .section-header {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto var(--spacing-2xl);
-        }
-        /* Responsive */
-        
-        @media (max-width: 768px) {
-            html {
-                font-size: 14px;
-            }
-            .container {
-                padding: 0 var(--spacing-md);
-            }
-            h1 {
-                font-size: 2.5rem;
-            }
-            h2 {
-                font-size: 2.25rem;
-            }
-            .lead {
-                font-size: 1.125rem;
-            }
-            .hero {
-                padding: calc(var(--spacing-2xl) + 56px) 0 var(--spacing-xl);
-            }
-            .site-header .container {
-                height: 64px;
-            }
-            .nav-menu {
-                display: none;
-            }
-            .feature-card {
-                padding: var(--spacing-lg);
-            }
-            .logo {
-                font-size: 1rem;
-            }
-        }
-        /* Update link styles globally */
-        
-        a {
-            color: var(--link-color);
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-        
-        a:hover {
-            color: var(--link-hover);
-        }
-        /* Email Button */
-        
-        .btn-email {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin: 10px 0;
-            background: var(--btn-bg);
-            color: var(--btn-text);
-            border: 1px solid var(--btn-border);
-            padding: 10px 20px;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
-        
-        .btn-email:hover {
-            background: var(--btn-hover-bg);
-            color: var(--btn-hover-text);
-            transform: translateY(-1px);
-        }
-        /* Footer Links */
-        
-        .footer-links a,
-        .footer-legal a {
-            color: var(--link-color);
-            opacity: 0.8;
-            transition: all 0.2s ease;
-        }
-        
-        .footer-links a:hover,
-        .footer-legal a:hover {
-            opacity: 1;
-            color: var(--link-hover);
-        }
-        /* Social Links */
-        
-        .social-links a {
-            color: var(--link-color);
-            opacity: 0.8;
-            transition: all 0.2s ease;
-        }
-        
-        .social-links a:hover {
-            opacity: 1;
-            color: var(--link-hover);
+        :root {
+            --primary-bg: #ffffff;
+            --text-color: #111111;
         }
     </style>
 </head>
 
-<body>
-    <!-- Navigation -->
-    <header class="site-header">
-        <div class="container">
-            <nav class="navbar">
-                <a href="#" class="logo">Designed For You</a>
-                <div class="menu-toggle" id="mobile-menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-                <ul class="nav-menu">
-                    <li><a href="#dashboard">Dashboard</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#process">Process</a></li>
-                    <li><a href="#comparison">Comparison</a></li>
-                    <li><a href="#contact" class="btn">Get Started</a></li>
-                </ul>
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-                    <i class="fa-solid fa-moon mode-icon"></i>
+<body class="font-sans text-gray-900 antialiased">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-white shadow-sm">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-16 md:h-20">
+                <a href="#" class="text-xl font-semibold tracking-tight">
+                    Designed For You
+                </a>
+                
+                <!-- Mobile menu button -->
+                <button class="md:hidden flex items-center p-2" aria-label="Toggle menu" id="mobile-menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
                 </button>
+                
+                <!-- Desktop Navigation -->
+                <ul class="hidden md:flex items-center space-x-8">
+                    <li>
+                        <a href="#services" class="text-sm font-medium hover:text-blue-500 transition-colors">
+                            Services
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#process" class="text-sm font-medium hover:text-blue-500 transition-colors">
+                            Process
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#comparison" class="text-sm font-medium hover:text-blue-500 transition-colors">
+                            Comparison
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#contact" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-blue-500 text-white hover:bg-blue-600 h-9 px-4 py-2">
+                            Get Started
+                        </a>
+                    </li>
+                </ul>
             </nav>
         </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div class="hidden md:hidden bg-white border-t border-gray-100 px-4 py-5 shadow-lg" id="mobile-menu">
+            <ul class="space-y-4">
+                <li>
+                    <a href="#services" class="block py-2 text-sm font-medium hover:text-blue-500 transition-colors w-full text-left">
+                        Services
+                    </a>
+                </li>
+                <li>
+                    <a href="#process" class="block py-2 text-sm font-medium hover:text-blue-500 transition-colors w-full text-left">
+                        Process
+                    </a>
+                </li>
+                <li>
+                    <a href="#comparison" class="block py-2 text-sm font-medium hover:text-blue-500 transition-colors w-full text-left">
+                        Comparison
+                    </a>
+                </li>
+                <li>
+                    <a href="#contact" class="block text-center w-full rounded-md bg-blue-500 text-white py-2 px-4 mt-4 hover:bg-blue-600 transition-colors">
+                        Get Started
+                    </a>
+                </li>
+            </ul>
+        </div>
     </header>
-</body>
 
-</html>
-<!-- Hero Section -->
-<section class="hero" id="home">
-    <div class="container">
-        <div class="hero-content">
-            <h1>Web Solutions Designed For You</h1>
-        </div>
-    </div>
-    <div class="scroll-indicator">
-        <span class="scroll-text">Scroll</span>
-    </div>
-</section>
-
-<!-- Introduction Section -->
-<section class="intro" id="intro">
-    <div class="container">
-        <div class="section-header text-center">
-            <h2>Crafting Digital Experiences That Matter</h2>
-            <p class="section-subtext">We blend design, technology, and strategy to create websites that deliver results.</p>
-        </div>
-        <div class="intro-features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-paint-brush"></i>
-                </div>
-                <h3>Aesthetic Design</h3>
-                <p>Visually stunning websites that capture your brand's essence and resonate with your audience.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-code"></i>
-                </div>
-                <h3>Clean Code</h3>
-                <p>Performance-optimized websites built with industry best practices for speed and reliability.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-                <h3>Responsive Design</h3>
-                <p>Seamless experiences across all devices, ensuring you never lose a visitor.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-search"></i>
-                </div>
-                <h3>SEO Friendly</h3>
-                <p>Built-in optimization that helps your website rank higher in search results.</p>
+    <!-- Hero Section (from index.html) -->
+    <section class="hero" id="home">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="hero-content">
+                <h1>Web Solutions Designed For You</h1>
             </div>
         </div>
-    </div>
-</section>
-<!-- Services Section -->
-<section class="services" id="services">
-    <div class="container">
-        <div class="section-header text-center">
-            <h2>Our Service Packages</h2>
-            <p class="section-subtext">Tailored solutions to match your business needs and goals.</p>
+        <div class="scroll-indicator">
+            <span class="scroll-text">Scroll</span>
         </div>
+    </section>
 
-        <div class="packages-container">
-            <!-- Starter Package -->
-            <div class="package-card">
-                <div class="package-header">
-                    <h3>Starter Website</h3>
-                    <div class="price">$1,000</div>
-                    <p class="package-description">Perfect for small businesses or personal brands looking to establish their online presence.</p>
-                </div>
-                <div class="package-features">
-                    <ul>
-                        <li><i class="fas fa-check"></i> 1 page with 5 sections</li>
-                        <li><i class="fas fa-check"></i> Choice from 3 pre-designed themes</li>
-                        <li><i class="fas fa-check"></i> Basic SEO setup</li>
-                        <li><i class="fas fa-check"></i> Contact form integration</li>
-                        <li><i class="fas fa-check"></i> Social media integration</li>
-                        <li><i class="fas fa-check"></i> Google Maps integration</li>
-                        <li><i class="fas fa-check"></i> One revision round</li>
-                        <li><i class="fas fa-check"></i> Delivery in 5-7 days</li>
-                    </ul>
-                </div>
-                <div class="package-cta">
-                    <a href="#contact" class="btn btn-package">Get Started</a>
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Our Services</h2>
+                <p class="text-lg text-gray-600">
+                    We offer comprehensive web solutions tailored to your specific needs, from simple websites to complex applications.
+                </p>
+            </div>
+
+            <!-- Service Filter Tabs -->
+            <div class="flex justify-center mb-12 overflow-x-auto">
+                <div class="inline-flex p-1 bg-white rounded-lg shadow-sm" role="tablist">
+                    <button class="px-6 py-2 rounded-md text-sm font-medium transition-all text-white bg-gray-900 filter-btn" data-filter="all">
+                        All
+                    </button>
+                    <button class="px-6 py-2 rounded-md text-sm font-medium transition-all text-gray-700 hover:text-gray-900 filter-btn" data-filter="design">
+                        Design
+                    </button>
+                    <button class="px-6 py-2 rounded-md text-sm font-medium transition-all text-gray-700 hover:text-gray-900 filter-btn" data-filter="development">
+                        Development
+                    </button>
+                    <button class="px-6 py-2 rounded-md text-sm font-medium transition-all text-gray-700 hover:text-gray-900 filter-btn" data-filter="maintenance">
+                        Maintenance
+                    </button>
                 </div>
             </div>
 
-            <!-- Business Package -->
-            <div class="package-card featured">
-                <div class="package-badge">Most Popular</div>
-                <div class="package-header">
-                    <h3>Business Website</h3>
-                    <div class="price">$2,000</div>
-                    <p class="package-description">Comprehensive solution for established businesses seeking greater online impact.</p>
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- UI/UX Design -->
+                <div class="service-card" data-category="design">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden h-full transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg flex flex-col">
+                        <div class="p-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                        <div class="p-6 flex-1">
+                            <div class="w-12 h-12 bg-blue-500/10 rounded-md flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">UI/UX Design</h3>
+                            <p class="text-gray-600 mb-4">Create intuitive and engaging user experiences with our professional UI/UX design services.</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    User Research & Analysis
+                                </li>
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Wireframing & Prototyping
+                                </li>
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Responsive Design
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p-6 pt-0 mt-auto">
+                            <a href="#contact" class="text-blue-500 font-medium hover:text-gray-900 flex items-center group">
+                                Learn more
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="package-features">
-                    <ul>
-                        <li><i class="fas fa-check"></i> Up to 3 custom pages</li>
-                        <li><i class="fas fa-check"></i> Custom design tailored to your brand</li>
-                        <li><i class="fas fa-check"></i> Advanced SEO implementation</li>
-                        <li><i class="fas fa-check"></i> Google Analytics setup</li>
-                        <li><i class="fas fa-check"></i> Interactive elements and animations</li>
-                        <li><i class="fas fa-check"></i> Two revision rounds</li>
-                        <li><i class="fas fa-check"></i> Delivery in 10-14 days</li>
-                    </ul>
-                </div>
-                <div class="package-cta">
-                    <a href="#contact" class="btn btn-package featured-btn">Get Started</a>
-                </div>
-            </div>
 
-            <!-- Premium Package -->
-            <div class="package-card">
-                <div class="package-header">
-                    <h3>Premium Website</h3>
-                    <div class="price">$3,500+</div>
-                    <p class="package-description">Enterprise-grade solution with advanced features for maximum online performance.</p>
+                <!-- Web Development -->
+                <div class="service-card" data-category="development">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden h-full transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg flex flex-col">
+                        <div class="p-1 bg-gradient-to-r from-green-500 to-blue-500"></div>
+                        <div class="p-6 flex-1">
+                            <div class="w-12 h-12 bg-green-500/10 rounded-md flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">Web Development</h3>
+                            <p class="text-gray-600 mb-4">Build robust, scalable web applications with modern technologies and best practices.</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Frontend Development
+                                </li>
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Backend Architecture
+                                </li>
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    API Integration
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p-6 pt-0 mt-auto">
+                            <a href="#contact" class="text-green-500 font-medium hover:text-gray-900 flex items-center group">
+                                Learn more
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="package-features">
-                    <ul>
-                        <li><i class="fas fa-check"></i> Fully custom website (up to 9 pages)</li>
-                        <li><i class="fas fa-check"></i> E-commerce functionality</li>
-                        <li><i class="fas fa-check"></i> CRM integration</li>
-                        <li><i class="fas fa-check"></i> Advanced SEO strategies</li>
-                        <li><i class="fas fa-check"></i> Performance optimization</li>
-                        <li><i class="fas fa-check"></i> Lead capture functionality</li>
-                        <li><i class="fas fa-check"></i> Three revision rounds</li>
-                        <li><i class="fas fa-check"></i> Delivery in 3-4 weeks</li>
-                    </ul>
+
+                <!-- Maintenance & Support -->
+                <div class="service-card" data-category="maintenance">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden h-full transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg flex flex-col">
+                        <div class="p-1 bg-gradient-to-r from-purple-500 to-blue-500"></div>
+                        <div class="p-6 flex-1">
+                            <div class="w-12 h-12 bg-purple-500/10 rounded-md flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">Maintenance & Support</h3>
+                            <p class="text-gray-600 mb-4">Keep your web applications running smoothly with ongoing maintenance and support.</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Performance Optimization
+                                </li>
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Security Updates
+                                </li>
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Content Management
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p-6 pt-0 mt-auto">
+                            <a href="#contact" class="text-purple-500 font-medium hover:text-gray-900 flex items-center group">
+                                Learn more
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="package-cta">
-                    <a href="#contact" class="btn btn-package">Get Started</a>
+
+                <!-- E-commerce Development -->
+                <div class="service-card" data-category="development">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden h-full transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg flex flex-col">
+                        <div class="p-1 bg-gradient-to-r from-green-500 to-blue-500"></div>
+                        <div class="p-6 flex-1">
+                            <div class="w-12 h-12 bg-green-500/10 rounded-md flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">E-commerce Development</h3>
+                            <p class="text-gray-600 mb-4">Build powerful online stores with seamless payment processing and inventory management.</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Shopping Cart Integration
+                                </li>
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Payment Gateway Setup
+                                </li>
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Inventory Management
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p-6 pt-0 mt-auto">
+                            <a href="#contact" class="text-green-500 font-medium hover:text-gray-900 flex items-center group">
+                                Learn more
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brand Identity Design -->
+                <div class="service-card" data-category="design">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden h-full transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg flex flex-col">
+                        <div class="p-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                        <div class="p-6 flex-1">
+                            <div class="w-12 h-12 bg-blue-500/10 rounded-md flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">Brand Identity Design</h3>
+                            <p class="text-gray-600 mb-4">Establish a consistent and memorable brand identity across all digital touchpoints.</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Logo Design
+                                </li>
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Brand Guidelines
+                                </li>
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Marketing Materials
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p-6 pt-0 mt-auto">
+                            <a href="#contact" class="text-blue-500 font-medium hover:text-gray-900 flex items-center group">
+                                Learn more
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Optimization -->
+                <div class="service-card" data-category="maintenance">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden h-full transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg flex flex-col">
+                        <div class="p-1 bg-gradient-to-r from-purple-500 to-blue-500"></div>
+                        <div class="p-6 flex-1">
+                            <div class="w-12 h-12 bg-purple-500/10 rounded-md flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">Performance Optimization</h3>
+                            <p class="text-gray-600 mb-4">Improve website speed, performance, and search engine rankings with expert optimization.</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Core Web Vitals Enhancement
+                                </li>
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Code Minification
+                                </li>
+                                <li class="flex items-center text-sm text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    SEO Improvements
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p-6 pt-0 mt-auto">
+                            <a href="#contact" class="text-purple-500 font-medium hover:text-gray-900 flex items-center group">
+                                Learn more
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- Package Comparison Section -->
-<section class="comparison" id="comparison">
-    <div class="container">
-        <div class="section-header text-center">
-            <h2>Package Comparison</h2>
-            <p class="section-subtext">Find the perfect solution for your business needs</p>
-        </div>
+    </section>
 
-        <div class="comparison-table-wrapper">
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Starter<br>$1,000</th>
-                        <th>Business<br>$2,000</th>
-                        <th>Premium<br>$3,500+</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Number of Pages</td>
-                        <td>1 page</td>
-                        <td>Up to 3 pages</td>
-                        <td>Up to 9 pages</td>
-                    </tr>
-                    <tr>
-                        <td>Design Type</td>
-                        <td>3 pre-designed themes</td>
-                        <td>Custom design</td>
-                        <td>Fully custom design</td>
-                    </tr>
-                    <tr>
-                        <td>SEO Features</td>
-                        <td>Basic setup</td>
-                        <td>Advanced implementation</td>
-                        <td>Advanced strategies</td>
-                    </tr>
-                    <tr>
-                        <td>Integrations</td>
-                        <td>Contact form, Social media, Google Maps</td>
-                        <td>All Starter features + Google Analytics</td>
-                        <td>All Business features + E-commerce, CRM</td>
-                    </tr>
-                    <tr>
-                        <td>Revision Rounds</td>
-                        <td>1 round</td>
-                        <td>2 rounds</td>
-                        <td>3 rounds</td>
-                    </tr>
-                    <tr>
-                        <td>Delivery Time</td>
-                        <td>5-7 days</td>
-                        <td>10-14 days</td>
-                        <td>3-4 weeks</td>
-                    </tr>
-                    <tr>
-                        <td>Performance Optimization</td>
-                        <td>Basic</td>
-                        <td>Standard</td>
-                        <td>Advanced</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><a href="#contact" class="btn btn-sm">Select</a></td>
-                        <td><a href="#contact" class="btn btn-sm featured-btn">Select</a></td>
-                        <td><a href="#contact" class="btn btn-sm">Select</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
-
-<!-- Process Section -->
-<section class="process" id="process">
-    <div class="container">
-        <div class="section-header text-center">
-            <h2>Our Design Process</h2>
-            <p class="section-subtext">How we transform your vision into digital reality</p>
-        </div>
-
-        <div class="process-steps">
-            <div class="step">
-                <div class="step-number">01</div>
-                <div class="step-content">
-                    <h3>Discovery</h3>
-                    <p>We begin by understanding your business, goals, target audience, and competitors to establish a solid foundation.</p>
-                </div>
+    <!-- Process Section -->
+    <section id="process" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Our Process</h2>
+                <p class="text-lg text-gray-600">
+                    We follow a structured approach to deliver high-quality web solutions that meet your business needs.
+                </p>
             </div>
 
-            <div class="step">
-                <div class="step-number">02</div>
-                <div class="step-content">
-                    <h3>Planning</h3>
-                    <p>We develop a strategic roadmap, including sitemap, wireframes, and content structure tailored to your objectives.</p>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-number">03</div>
-                <div class="step-content">
-                    <h3>Design</h3>
-                    <p>Our designers create visually compelling mockups that align with your brand identity and user expectations.</p>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-number">04</div>
-                <div class="step-content">
-                    <h3>Development</h3>
-                    <p>We transform designs into functional, responsive websites using clean, optimized code for optimal performance.</p>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-number">05</div>
-                <div class="step-content">
-                    <h3>Testing</h3>
-                    <p>Thorough quality assurance across devices, browsers, and platforms ensures a flawless user experience.</p>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-number">06</div>
-                <div class="step-content">
-                    <h3>Launch</h3>
-                    <p>After your approval, we deploy your website and provide the necessary training and documentation.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- CTA Section -->
-<section class="cta-section">
-    <div class="container">
-        <div class="cta-content">
-            <h2>Ready to Transform Your Digital Presence?</h2>
-            <p>Book a free consultation with our team and discover how we can help you achieve your business goals.</p>
-            <a href="#contact" class="btn btn-cta">Get Your Free Consultation</a>
-        </div>
-    </div>
-</section>
-
-<!-- Contact Section -->
-<section class="contact" id="contact">
-    <div class="container">
-        <div class="section-header text-center">
-            <h2>Start Your Project Today</h2>
-            <p class="section-subtext">Tell us about your project and we'll get back to you within 24 hours</p>
-        </div>
-
-        <div class="contact-container">
-            <div class="contact-info">
-                <h3>Contact Information</h3>
-                <p>Have questions before getting started? Reach out directly:</p>
-
-                <div class="info-item">
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:hintonstrategic@gmail.com" class="btn btn-email"><i class="fas fa-envelope"></i> Email Us</a>
-                </div>
-
-
-                <div class="social-links">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-
-            <div class="contact-form">
-                <form id="project-form">
-                    <div class="form-group">
-                        <label for="name">Full Name*</label>
-                        <input type="text" id="name" name="name" required>
+            <div class="max-w-4xl mx-auto">
+                <!-- Process Steps -->
+                <div class="space-y-12 relative step-indicator">
+                    <!-- Step 1 -->
+                    <div class="process-step flex gap-6">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold z-10">
+                            1
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-6 flex-grow">
+                            <h3 class="text-xl font-semibold mb-3">Discovery & Planning</h3>
+                            <p class="text-gray-600 mb-4">We begin by understanding your business goals, target audience, and project requirements to create a strategic roadmap.</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-baseline gap-2">
+                                    <span class="text-blue-500">•</span>
+                                    <span class="text-gray-600">Stakeholder Interviews</span>
+                                </li>
+                                <li class="flex items-baseline gap-2">
+                                    <span class="text-blue-500">•</span>
+                                    <span class="text-gray-600">Market Research</span>
+                                </li>
+                                <li class="flex items-baseline gap-2">
+                                    <span class="text-blue-500">•</span>
+                                    <span class="text-gray-600">Project Scope Definition</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="email">Email Address*</label>
-                        <input type="email" id="email" name="email" required>
+                    <!-- Step 2 -->
+                    <div class="process-step flex gap-6">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-green-500 flex items-center justify-center text-white font-bold z-10">
+                            2
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-6 flex-grow">
+                            <h3 class="text-xl font-semibold mb-3">Design & Prototyping</h3>
+                            <p class="text-gray-600 mb-4">We create wireframes and interactive prototypes that visualize the user interface and experience before development begins.</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-baseline gap-2">
+                                    <span class="text-green-500">•</span>
+                                    <span class="text-gray-600">Wireframing</span>
+                                </li>
+                                <li class="flex items-baseline gap-2">
+                                    <span class="text-green-500">•</span>
+                                    <span class="text-gray-600">UI/UX Design</span>
+                                </li>
+                                <li class="flex items-baseline gap-2">
+                                    <span class="text-green-500">•</span>
+                                    <span class="text-gray-600">Interactive Prototyping</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone">
+                    <!-- Step 3 -->
+                    <div class="process-step flex gap-6">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold z-10">
+                            3
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-6 flex-grow">
+                            <h3 class="text-xl font-semibold mb-3">Development</h3>
+                            <p class="text-gray-600 mb-4">Our developers build your solution using the latest technologies and best practices to ensure reliability and performance.</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-baseline gap-2">
+                                    <span class="text-purple-500">•</span>
+                                    <span class="text-gray-600">Frontend Development</span>
+                                </li>
+                                <li class="flex items-baseline gap-2">
+                                    <span class="text-purple-500">•</span>
+                                    <span class="text-gray-600">Backend Development</span>
+                                </li>
+                                <li class="flex items-baseline gap-2">
+                                    <span class="text-purple-500">•</span>
+                                    <span class="text-gray-600">Integration & Testing</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="package">Interested Package</label>
-                        <select id="package" name="package">
-                            <option value="Not sure yet">Not sure yet</option>
-                            <option value="Starter Website">Starter Website ($1,000)</option>
-                            <option value="Business Website">Business Website ($2,000)</option>
-                            <option value="Premium Website">Premium Website ($3,500+)</option>
-                        </select>
+                    <!-- Step 4 -->
+                    <div class="process-step flex gap-6">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold z-10">
+                            4
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-6 flex-grow">
+                            <h3 class="text-xl font-semibold mb-3">Launch & Support</h3>
+                            <p class="text-gray-600 mb-4">We deploy your solution, provide comprehensive training, and offer ongoing support to ensure continued success.</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-baseline gap-2">
+                                    <span class="text-blue-500">•</span>
+                                    <span class="text-gray-600">Deployment</span>
+                                </li>
+                                <li class="flex items-baseline gap-2">
+                                    <span class="text-blue-500">•</span>
+                                    <span class="text-gray-600">User Training</span>
+                                </li>
+                                <li class="flex items-baseline gap-2">
+                                    <span class="text-blue-500">•</span>
+                                    <span class="text-gray-600">Ongoing Maintenance</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-
-                    <div class="form-group full-width">
-                        <label for="message">Project Details*</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <button type="submit" class="btn btn-submit">Send Message</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- FAQ Section -->
-<section class="faq" id="faq">
-    <div class="container">
-        <div class="section-header text-center">
-            <h2>Frequently Asked Questions</h2>
-            <p class="section-subtext">Everything you need to know about our services</p>
-        </div>
+    <!-- Comparison Section -->
+    <section id="comparison" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Pricing Plans</h2>
+                <p class="text-lg text-gray-600">
+                    Choose the perfect package for your business needs and budget.
+                </p>
+            </div>
 
-        <div class="faq-container">
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>How long does it take to complete a website?</h3>
-                    <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+            <!-- Billing Toggle -->
+            <div class="flex items-center justify-center mb-12">
+                <span class="text-sm font-medium text-gray-900">Monthly</span>
+                <label class="relative inline-flex items-center mx-4 cursor-pointer">
+                    <input type="checkbox" id="billing-toggle" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+                <span class="text-sm font-medium text-gray-500">Annual <span class="text-xs text-blue-500">(-20%)</span></span>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Starter Package -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition-all hover:shadow-lg">
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="text-xl font-semibold mb-2">Starter</h3>
+                        <div class="text-3xl font-bold mb-2 text-gray-900">
+                            <span class="price-monthly">$1,499</span>
+                            <span class="price-annual hidden">$1,199</span>
+                            <span class="text-sm font-normal text-gray-500">/mo</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Perfect for small businesses and startups.</p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>5-page responsive website</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Basic SEO setup</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Contact form integration</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Mobile-friendly design</span>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                <span>Content management system</span>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                <span>E-commerce functionality</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="block text-center w-full mt-8 py-3 px-4 rounded-md border border-gray-300 bg-white text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                            Get Started
+                        </a>
+                    </div>
                 </div>
-                <div class="faq-answer">
-                    <p>Project timelines vary depending on the package and complexity. Our Starter Websites typically take 5-7 days, Business Websites 10-14 days, and Premium Websites 3-4 weeks. We'll provide a specific timeline during our initial consultation.</p>
+
+                <!-- Business Package -->
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden border border-blue-500 relative scale-105 z-10 transform md:translate-y-0">
+                    <div class="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide">
+                        Popular
+                    </div>
+                    <div class="p-6 border-b border-gray-200 bg-blue-50">
+                        <h3 class="text-xl font-semibold mb-2">Business</h3>
+                        <div class="text-3xl font-bold mb-2 text-gray-900">
+                            <span class="price-monthly">$2,999</span>
+                            <span class="price-annual hidden">$2,399</span>
+                            <span class="text-sm font-normal text-gray-500">/mo</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Ideal for growing businesses with specific needs.</p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>10-page responsive website</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Advanced SEO optimization</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Content management system</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Custom form development</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Google Analytics integration</span>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                <span>E-commerce functionality</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="block text-center w-full mt-8 py-3 px-4 rounded-md bg-blue-500 text-white font-medium hover:bg-blue-600 transition-colors">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Premium Package -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition-all hover:shadow-lg">
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="text-xl font-semibold mb-2">Premium</h3>
+                        <div class="text-3xl font-bold mb-2 text-gray-900">
+                            <span class="price-monthly">$4,999</span>
+                            <span class="price-annual hidden">$3,999</span>
+                            <span class="text-sm font-normal text-gray-500">/mo</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Complete solution for established businesses.</p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Unlimited page website</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Full SEO strategy</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>E-commerce functionality</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Custom database integration</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Advanced analytics dashboard</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Priority customer support</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="block text-center w-full mt-8 py-3 px-4 rounded-md border border-gray-300 bg-white text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                            Get Started
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>Do I need to provide content for my website?</h3>
-                    <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+            <!-- Interactive budget calculator -->
+            <div class="mt-20 max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h3 class="text-2xl font-bold">Budget Calculator</h3>
+                    <p class="text-gray-600">Estimate the cost of your web project by selecting the features you need.</p>
                 </div>
-                <div class="faq-answer">
-                    <p>Yes, you'll need to provide the core content (text and images) for your website. However, we can offer guidance on content strategy and structure. For premium clients, we also offer copywriting and content creation services at an additional
-                        cost.
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-medium mb-4">Select Features</h4>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <label for="cms" class="text-gray-700">Content Management System</label>
+                                    <div class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="cms" class="calculator-feature sr-only" data-value="300">
+                                        <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <label for="ecommerce" class="text-gray-700">E-commerce Functionality</label>
+                                    <div class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="ecommerce" class="calculator-feature sr-only" data-value="500">
+                                        <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <label for="seo" class="text-gray-700">SEO Optimization</label>
+                                    <div class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="seo" class="calculator-feature sr-only" data-value="200">
+                                        <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <label for="forms" class="text-gray-700">Custom Forms & Integration</label>
+                                    <div class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="forms" class="calculator-feature sr-only" data-value="400">
+                                        <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-6">
+                                <h4 class="font-medium mb-4">Number of Pages</h4>
+                                <input type="range" min="1" max="20" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" id="pages-slider">
+                                <div class="flex justify-between text-xs text-gray-500 mt-2">
+                                    <span>1</span>
+                                    <span>5</span>
+                                    <span>10</span>
+                                    <span>20</span>
+                                </div>
+                                <div class="text-center mt-2" id="pages-value">5 pages</div>
+                            </div>
+                            <div class="mb-6">
+                                <h4 class="font-medium mb-4">Project Complexity</h4>
+                                <input type="range" min="1" max="3" value="2" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" id="complexity-slider">
+                                <div class="flex justify-between text-xs text-gray-500 mt-2">
+                                    <span>Basic</span>
+                                    <span>Standard</span>
+                                    <span>Complex</span>
+                                </div>
+                                <div class="text-center mt-2" id="complexity-value">Standard</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 p-6 bg-gray-50 rounded-lg">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-semibold text-lg">Estimated Total:</h4>
+                            <div class="text-3xl font-bold text-blue-600" id="calculator-total">$1,000</div>
+                        </div>
+                        <p class="text-sm text-gray-500">This is an estimate. Contact us for a detailed quote.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Get In Touch</h2>
+                <p class="text-lg text-gray-600">
+                    Ready to start your project? Contact us today for a free consultation.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <!-- Contact Form -->
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8 border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-6">Send Us a Message</h3>
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <input type="text" id="name" name="name" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="John Doe" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="john@example.com" required>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="(123) 456-7890">
+                            </div>
+                            <div>
+                                <label for="service" class="block text-sm font-medium text-gray-700 mb-1">Service Interested In</label>
+                                <select id="service" name="service" class="form-select w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="">Select a service</option>
+                                    <option value="web-design">Web Design</option>
+                                    <option value="web-development">Web Development</option>
+                                    <option value="ecommerce">E-commerce</option>
+                                    <option value="maintenance">Maintenance</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Your Message</label>
+                            <textarea id="message" name="message" rows="5" class="form-textarea w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Tell us about your project..." required></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full bg-blue-500 text-white py-3 px-4 rounded-md font-medium hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="space-y-8">
+                    <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+                        <h3 class="text-xl font-semibold mb-6">Contact Information</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                    </svg>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-900">Phone</p>
+                                    <p class="text-sm text-gray-600">+1 (555) 123-4567</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-900">Email</p>
+                                    <p class="text-sm text-gray-600">hintonstrategic@gmail.com</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-900">Address</p>
+                                    <p class="text-sm text-gray-600">123 Web Design Street, Digital City, CA 90210</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+                        <h3 class="text-xl font-semibold mb-6">Business Hours</h3>
+                        <ul class="space-y-3">
+                            <li class="flex justify-between">
+                                <span class="text-gray-600">Monday - Friday</span>
+                                <span class="font-medium">9:00 AM - 6:00 PM</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span class="text-gray-600">Saturday</span>
+                                <span class="font-medium">10:00 AM - 4:00 PM</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span class="text-gray-600">Sunday</span>
+                                <span class="font-medium">Closed</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <a href="#" class="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white hover:bg-blue-700 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="h-10 w-10 rounded-full bg-blue-400 flex items-center justify-center text-white hover:bg-blue-500 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="h-10 w-10 rounded-full bg-red-600 flex items-center justify-center text-white hover:bg-red-700 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M7 11v2.4h3.97c-.16 1.029-1.2 3.02-3.97 3.02-2.39 0-4.34-1.979-4.34-4.42 0-2.44 1.95-4.42 4.34-4.42 1.36 0 2.27.58 2.79 1.08l1.9-1.83c-1.22-1.14-2.8-1.83-4.69-1.83-3.87 0-7 3.13-7 7s3.13 7 7 7c4.04 0 6.721-2.84 6.721-6.84 0-.46-.051-.81-.111-1.16h-6.61zm0 0 17 2h-3v3h-2v-3h-3v-2h3v-3h2v3h3v2z" fill-rule="evenodd" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                        <a href="#" class="h-10 w-10 rounded-full bg-blue-800 flex items-center justify-center text-white hover:bg-blue-900 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Designed For You</h3>
+                    <p class="text-gray-400 mb-4">
+                        Custom web development and design services tailored to your business needs.
                     </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#services" class="text-gray-400 hover:text-white">Web Design</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white">Web Development</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white">E-commerce Development</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white">Brand Identity Design</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white">Maintenance & Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Our Team</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Portfolio</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Testimonials</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Guides</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Support</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>Do you offer website maintenance services?</h3>
-                    <span class="faq-toggle"><i class="fas fa-plus"></i></span>
-                </div>
-                <div class="faq-answer">
-                    <p>Yes, we offer monthly maintenance plans to keep your website secure, updated, and performing optimally. These plans include regular backups, security monitoring, and technical support. We'll discuss these options after your project
-                        is completed.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>Can I update the website myself after it's completed?</h3>
-                    <span class="faq-toggle"><i class="fas fa-plus"></i></span>
-                </div>
-                <div class="faq-answer">
-                    <p>Yes! We build websites with user-friendly content management systems that allow you to make basic updates yourself. We also provide training and documentation to help you manage your content confidently.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>What payment methods do you accept?</h3>
-                    <span class="faq-toggle"><i class="fas fa-plus"></i></span>
-                </div>
-                <div class="faq-answer">
-                    <p>We accept credit cards, PayPal, and bank transfers. We typically require a 50% deposit to begin the project, with the remaining balance due upon completion before the website goes live.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Footer -->
-<footer class="site-footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <h3>Designed For You</h3>
-                <p>Creating exceptional digital experiences that drive results.</p>
-                <div class="footer-social">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#process">Our Process</a></li>
-                    <li><a href="#comparison">Package Comparison</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#contact">Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-contact">
-                <h4>Contact Us</h4>
-                <a href="mailto:hintonstrategic@gmail.com" class="btn btn-email"><i class="fas fa-envelope"></i> Email Us</a>
+            <div class="pt-8 border-t border-gray-800 text-center text-gray-400">
+                <p>&copy; 2025 Designed For You. All rights reserved.</p>
             </div>
         </div>
+    </footer>
 
-        <div class="footer-bottom">
-            <p>&copy; 2025 Designed For You. All rights reserved.</p>
-            <div class="footer-legal">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<script>
-    // Mobile Menu Toggle
-    document.getElementById('mobile-menu').addEventListener('click', function() {
-        this.classList.toggle('active');
-        document.querySelector('.nav-menu').classList.toggle('active');
-    });
-
-    // FAQ Toggle
-    const faqItems = document.querySelectorAll('.faq-question');
-    faqItems.forEach(item => {
-        item.addEventListener('click', () => {
-            item.parentElement.classList.toggle('active');
-            const icon = item.querySelector('.faq-toggle i');
-            if (icon.classList.contains('fa-plus')) {
-                icon.classList.remove('fa-plus');
-                icon.classList.add('fa-minus');
-            } else {
-                icon.classList.remove('fa-minus');
-                icon.classList.add('fa-plus');
-            }
-        });
-    });
-
-    // Form Submission
-    document.getElementById('project-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        // Here you would normally handle form submission via AJAX
-        // For demo purposes, we'll just show a success message
-        this.innerHTML = '<div class="form-success"><i class="fas fa-check-circle"></i><h3>Thank you for your message!</h3><p>We\'ll be in touch within 24 hours to discuss your project.</p></div>';
-    });
-
-    // Carousel Functionality
-    const carousel = {
-        currentSlide: 0,
-        items: document.querySelectorAll('.carousel-item'),
-        indicators: document.querySelectorAll('.indicator'),
-        autoPlayInterval: null,
-
-        init() {
-            // Add click events for controls
-            document.querySelector('.carousel-control.prev').addEventListener('click', () => this.prevSlide());
-            document.querySelector('.carousel-control.next').addEventListener('click', () => this.nextSlide());
-
-            // Add click events for indicators
-            this.indicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => this.goToSlide(index));
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
             });
 
-            // Start autoplay
-            this.startAutoPlay();
+            // Close mobile menu when clicking on links
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
 
-            // Pause autoplay on hover
-            document.querySelector('.carousel').addEventListener('mouseenter', () => this.stopAutoPlay());
-            document.querySelector('.carousel').addEventListener('mouseleave', () => this.startAutoPlay());
-        },
+            // Service filtering
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const serviceCards = document.querySelectorAll('.service-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('text-white', 'bg-gray-900');
+                        btn.classList.add('text-gray-700', 'hover:text-gray-900');
+                    });
+// Add active class to clicked button
+                    this.classList.remove('text-gray-700', 'hover:text-gray-900');
+                    this.classList.add('text-white', 'bg-gray-900');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Filter service cards
+                    serviceCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
 
-        goToSlide(index) {
-            // Remove active class from current slide and indicator
-            this.items[this.currentSlide].classList.remove('active');
-            this.indicators[this.currentSlide].classList.remove('active');
+            // Pricing toggle (monthly/annual)
+            const billingToggle = document.getElementById('billing-toggle');
+            const monthlyPrices = document.querySelectorAll('.price-monthly');
+            const annualPrices = document.querySelectorAll('.price-annual');
+            
+            billingToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    // Show annual prices
+                    monthlyPrices.forEach(price => price.classList.add('hidden'));
+                    annualPrices.forEach(price => price.classList.remove('hidden'));
+                } else {
+                    // Show monthly prices
+                    monthlyPrices.forEach(price => price.classList.remove('hidden'));
+                    annualPrices.forEach(price => price.classList.add('hidden'));
+                }
+            });
 
-            // Update current slide
-            this.currentSlide = index;
+            // Budget calculator
+            const calculatorFeatures = document.querySelectorAll('.calculator-feature');
+            const pagesSlider = document.getElementById('pages-slider');
+            const pagesValue = document.getElementById('pages-value');
+            const complexitySlider = document.getElementById('complexity-slider');
+            const complexityValue = document.getElementById('complexity-value');
+            const calculatorTotal = document.getElementById('calculator-total');
+            
+            // Base price
+            let basePrice = 500;
+            
+            // Update calculator total
+            function updateCalculatorTotal() {
+                let total = basePrice;
+                
+                // Add feature costs
+                calculatorFeatures.forEach(feature => {
+                    if (feature.checked) {
+                        total += parseInt(feature.getAttribute('data-value'));
+                    }
+                });
+                
+                // Pages multiplier (100 per page)
+                total += parseInt(pagesSlider.value) * 100;
+                
+                // Complexity multiplier
+                const complexityMultipliers = {
+                    '1': 0.8, // Basic
+                    '2': 1.0, // Standard
+                    '3': 1.5  // Complex
+                };
+                total *= complexityMultipliers[complexitySlider.value];
+                
+                // Update the display
+                calculatorTotal.textContent = '$' + Math.round(total).toLocaleString();
+            }
+            
+            // Initialize calculator
+            pagesSlider.addEventListener('input', function() {
+                pagesValue.textContent = this.value + ' pages';
+                updateCalculatorTotal();
+            });
+            
+            complexitySlider.addEventListener('input', function() {
+                const complexityLabels = ['Basic', 'Standard', 'Complex'];
+                complexityValue.textContent = complexityLabels[this.value - 1];
+                updateCalculatorTotal();
+            });
+            
+            calculatorFeatures.forEach(feature => {
+                feature.addEventListener('change', updateCalculatorTotal);
+            });
+            
+            // Initialize values
+            updateCalculatorTotal();
 
-            // Add active class to new slide and indicator
-            this.items[this.currentSlide].classList.add('active');
-            this.indicators[this.currentSlide].classList.add('active');
-        },
+            // Contact form submission
+            const contactForm = document.getElementById('contact-form');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you shortly.');
+                contactForm.reset();
+            });
 
-        nextSlide() {
-            const next = (this.currentSlide + 1) % this.items.length;
-            this.goToSlide(next);
-        },
+            // Initialize dashboard preview chart
+            const previewChart = document.getElementById('previewChart');
+            if (previewChart) {
+                new Chart(previewChart, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Website Traffic',
+                            data: [1500, 2500, 2200, 3500, 4500, 5000],
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
 
-        prevSlide() {
-            const prev = (this.currentSlide - 1 + this.items.length) % this.items.length;
-            this.goToSlide(prev);
-        },
+            // Initialize traffic sources chart
+            const trafficChart = document.getElementById('trafficChart');
+            if (trafficChart) {
+                new Chart(trafficChart, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Organic Search', 'Direct', 'Social Media', 'Referral', 'Email'],
+                        datasets: [{
+                            data: [45, 25, 15, 10, 5],
+                            backgroundColor: [
+                                '#3b82f6', // Blue
+                                '#10b981', // Green
+                                '#8b5cf6', // Purple
+                                '#f59e0b', // Amber
+                                '#ef4444'  // Red
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'right'
+                            }
+                        }
+                    }
+                });
+            }
 
-        startAutoPlay() {
-            this.autoPlayInterval = setInterval(() => this.nextSlide(), 5000);
-        },
+            // Initialize engagement metrics chart
+            const engagementChart = document.getElementById('engagementChart');
+            if (engagementChart) {
+                new Chart(engagementChart, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Page Views', 'Avg. Time on Page', 'Bounce Rate', 'Conversion Rate'],
+                        datasets: [{
+                            label: 'Current Month',
+                            data: [15000, 3.2, 35, 5.7],
+                            backgroundColor: '#3b82f6'
+                        },
+                        {
+                            label: 'Previous Month',
+                            data: [12000, 2.8, 42, 4.2],
+                            backgroundColor: '#93c5fd'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
 
-        stopAutoPlay() {
-            clearInterval(this.autoPlayInterval);
-        }
-    };
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
 
-    // Initialize carousel when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-        carousel.init();
-    });
-</script>
-
-<style>
-    /* Additional CSS for components */
-    /* Header & Navigation */
-    
-    .site-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1000;
-        background-color: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        padding: 0.75rem 0;
-        height: 64px;
-        display: flex;
-        align-items: center;
-    }
-    
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 100%;
-        padding: 0;
-        max-width: 1200px;
-        margin: 0 auto;
-        width: 100%;
-    }
-    
-    .logo {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--text-color);
-        text-decoration: none;
-        letter-spacing: -0.02em;
-        margin-right: 40px;
-    }
-    
-    .nav-menu {
-        display: flex;
-        gap: 2rem;
-        align-items: center;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .nav-menu a {
-        color: var(--link-color);
-        text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: all 0.2s ease;
-    }
-    
-    .nav-menu a:hover {
-        color: var(--link-hover);
-    }
-    
-    .nav-btn {
-        background: none;
-        padding: 0.5rem 1.25rem;
-        font-size: 0.9rem;
-        transition: opacity 0.2s ease;
-    }
-    
-    .nav-btn:hover {
-        opacity: 0.7;
-    }
-    
-    .menu-toggle {
-        display: none;
-        flex-direction: column;
-        cursor: pointer;
-    }
-    
-    .bar {
-        width: 25px;
-        height: 3px;
-        background-color: var(--text-color);
-        margin: 3px 0;
-        transition: 0.4s;
-    }
-    /* Hero Section */
-    
-    .hero {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        position: relative;
-        background: var(--primary-bg);
-    }
-    
-    .hero-content {
-        max-width: 800px;
-        margin: 0;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: slideIn 1s ease forwards;
-        animation-delay: 0.5s;
-    }
-    
-    @keyframes slideIn {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .hero h1 {
-        font-size: 1.5rem;
-        font-weight: 400;
-        letter-spacing: 0.1em;
-        margin: 0;
-        color: var(--text-color);
-        text-transform: uppercase;
-    }
-    
-    .scroll-indicator {
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        opacity: 0;
-        animation: fadeIn 1s ease forwards;
-        animation-delay: 1.5s;
-    }
-    
-    @keyframes fadeIn {
-        to {
-            opacity: 0.6;
-        }
-    }
-    /* Hide other hero elements initially */
-    
-    .lead,
-    .hero-buttons,
-    .hero-image {
-        display: none;
-    }
-    
-    .highlight {
-        color: var(--accent-color);
-        position: relative;
-        display: inline-block;
-    }
-    
-    .highlight::after {
-        content: '';
-        position: absolute;
-        bottom: 0.1em;
-        left: 0;
-        width: 100%;
-        height: 0.1em;
-        background-color: rgba(0, 0, 0, 0.05);
-        z-index: -1;
-    }
-    
-    .lead {
-        font-size: 1.25rem;
-        margin-bottom: 3rem;
-        font-weight: 300;
-        line-height: 1.6;
-        color: var(--text-light);
-        opacity: 0.85;
-    }
-    
-    .hero-buttons {
-        display: flex;
-        gap: var(--spacing-md);
-        justify-content: center;
-    }
-    
-    .btn {
-        font-family: 'Inter', sans-serif;
-        font-size: 1rem;
-        font-weight: 500;
-        padding: 1rem 2.5rem;
-        border-radius: 0;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-        transition: all 0.3s ease;
-    }
-    
-    .btn-primary {
-        background-color: var(--btn-hover-bg);
-        color: var(--btn-hover-text);
-        border: 1px solid var(--btn-hover-bg);
-    }
-    
-    .btn-primary:hover {
-        background-color: var(--btn-hover-text);
-        color: var(--btn-hover-bg);
-        border-color: var(--btn-hover-bg);
-    }
-    
-    .btn-outline {
-        background-color: transparent;
-        border: 1px solid var(--text-color);
-        color: var(--text-color);
-    }
-    
-    .btn-outline:hover {
-        border-color: var(--text-color);
-        background: rgba(0, 0, 0, 0.05);
-    }
-    
-    .hero-image {
-        margin-top: 50px;
-    }
-    
-    .hero-img {
-        width: 100%;
-        height: auto;
-        border-radius: 8px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    }
-    
-    .scroll-text {
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
-    /* Intro Section */
-    
-    .intro {
-        background-color: var(--secondary-bg);
-        padding-top: var(--spacing-3xl);
-    }
-    
-    .section-header {
-        margin-bottom: 60px;
-    }
-    
-    .section-subtext {
-        font-size: 1.2rem;
-        font-weight: 300;
-        max-width: 700px;
-        margin: 0 auto;
-    }
-    
-    .intro-features {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
-    }
-    
-    .feature-card {
-        background-color: var(--primary-bg);
-        padding: 30px;
-        border: 1px solid var(--border-color);
-        transition: all 0.3s ease;
-    }
-    
-    .feature-card:hover {
-        transform: translateY(-5px);
-    }
-    
-    .feature-icon {
-        font-size: 2rem;
-        margin-bottom: 20px;
-        color: var(--accent-color);
-    }
-    /* Services/Packages Section */
-    
-    .packages-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin-top: 50px;
-    }
-    
-    .package-card {
-        background-color: var(--secondary-bg);
-        border: 1px solid var(--border-color);
-        padding: 40px 30px;
-        position: relative;
-        transition: all 0.3s ease;
-    }
-    
-    .package-card:hover {
-        transform: translateY(-10px);
-    }
-    
-    .package-card.featured {
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-    
-    .package-badge {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background-color: var(--accent-color);
-        color: var(--primary-bg);
-        padding: 5px 15px;
-        font-size: 0.8rem;
-        font-weight: 600;
-    }
-    
-    .package-header {
-        margin-bottom: 30px;
-    }
-    
-    .price {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
-    
-    .package-description {
-        color: rgba(255, 255, 255, 0.7);
-        min-height: 60px;
-    }
-    
-    .package-features ul {
-        list-style: none;
-        padding: 0;
-        margin-bottom: 30px;
-    }
-    
-    .package-features li {
-        margin-bottom: 15px;
-        display: flex;
-        align-items: flex-start;
-    }
-    
-    .package-features i {
-        margin-right: 10px;
-        color: var(--success-color);
-    }
-    
-    .package-cta {
-        text-align: center;
-    }
-    
-    .btn-package {
-        width: 100%;
-    }
-    
-    .featured-btn {
-        background-color: var(--text-color);
-        color: var(--primary-bg);
-    }
-    /* Comparison Table */
-    
-    .comparison-table-wrapper {
-        overflow-x: auto;
-        margin-top: 50px;
-    }
-    
-    .comparison-table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: center;
-    }
-    
-    .comparison-table th,
-    .comparison-table td {
-        padding: 15px;
-        border-bottom: 1px solid var(--border-color);
-    }
-    
-    .comparison-table th {
-        background-color: var(--secondary-bg);
-        font-weight: 600;
-    }
-    
-    .comparison-table tr:hover {
-        background-color: rgba(255, 255, 255, 0.05);
-    }
-    
-    .comparison-table td:first-child {
-        text-align: left;
-        font-weight: 500;
-    }
-    
-    .btn-sm {
-        padding: 8px 16px;
-        font-size: 14px;
-    }
-    /* Process Section */
-    
-    .process-steps {
-        margin-top: 50px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-    }
-    
-    .step {
-        display: flex;
-        align-items: flex-start;
-        gap: 20px;
-    }
-    
-    .step-number {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: rgba(255, 255, 255, 0.2);
-        line-height: 1;
-    }
-    
-    .step-content h3 {
-        margin-bottom: 10px;
-    }
-    /* CTA Section */
-    
-    .cta-section {
-        background-color: var(--secondary-bg);
-        text-align: center;
-        padding: 100px 0;
-    }
-    
-    .cta-content {
-        max-width: 700px;
-        margin: 0 auto;
-    }
-    
-    .cta-content h2 {
-        margin-bottom: 20px;
-    }
-    
-    .cta-content p {
-        margin-bottom: 30px;
-        font-size: 1.2rem;
-    }
-    
-    .btn-cta {
-        padding: 15px 30px;
-        font-size: 1.1rem;
-        background-color: var(--text-color);
-        color: var(--primary-bg);
-    }
-    /* Contact Section */
-    
-    .contact-container {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        gap: 40px;
-        margin-top: 50px;
-    }
-    
-    .contact-info {
-        background-color: var(--secondary-bg);
-        padding: 40px;
-        border: 1px solid var(--border-color);
-    }
-    
-    .contact-info h3 {
-        margin-bottom: 20px;
-    }
-    
-    .info-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-    
-    .info-item i {
-        margin-right: 15px;
-        font-size: 1.2rem;
-        width: 20px;
-    }
-    
-    .social-links {
-        margin-top: 30px;
-        display: flex;
-        gap: 15px;
-    }
-    
-    .social-links a {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-    }
-    
-    .social-links a:hover {
-        background-color: var(--text-color);
-        color: var(--primary-bg);
-    }
-    
-    .contact-form {
-        background-color: var(--secondary-bg);
-        padding: 40px;
-        border: 1px solid var(--border-color);
-    }
-    
-    .form-group {
-        margin-bottom: 20px;
-        width: calc(50% - 10px);
-        display: inline-block;
-    }
-    
-    .form-group.full-width {
-        width: 100%;
-    }
-    
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
-    }
-    
-    input,
-    select,
-    textarea {
-        width: 100%;
-        padding: 12px;
-        background-color: rgba(255, 255, 255, 0.05);
-        border: 1px solid var(--border-color);
-        color: var(--text-color);
-        font-family: 'Inter', sans-serif;
-        font-size: 16px;
-    }
-    
-    input:focus,
-    select:focus,
-    textarea:focus {
-        outline: none;
-        border-color: rgba(255, 255, 255, 0.3);
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .btn-submit {
-        width: 100%;
-        font-size: 1.1rem;
-        padding: 15px;
-        background-color: var(--text-color);
-        color: var(--primary-bg);
-    }
-    
-    .form-success {
-        text-align: center;
-        padding: 40px 20px;
-    }
-    
-    .form-success i {
-        font-size: 3rem;
-        color: var(--success-color);
-        margin-bottom: 20px;
-    }
-    /* FAQ Section */
-    
-    .faq-container {
-        max-width: 800px;
-        margin: 50px auto 0;
-    }
-    
-    .faq-item {
-        margin-bottom: 20px;
-        border: 1px solid var(--border-color);
-        background-color: var(--secondary-bg);
-    }
-    
-    .faq-question {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px;
-        cursor: pointer;
-    }
-    
-    .faq-question h3 {
-        margin: 0;
-        font-size: 1.2rem;
-    }
-    
-    .faq-toggle {
-        font-size: 1.2rem;
-    }
-    
-    .faq-answer {
-        padding: 0 20px;
-        max-height: 0;
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-    
-    .faq-item.active .faq-answer {
-        max-height: 300px;
-        padding: 0 20px 20px;
-    }
-    /* Footer */
-    
-    .site-footer {
-        background-color: var(--secondary-bg);
-        padding: 6rem 0 2rem;
-        margin-top: 0;
-    }
-    
-    .footer-content {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 40px;
-        margin-bottom: 60px;
-    }
-    
-    .footer-logo h3 {
-        margin-bottom: 15px;
-    }
-    
-    .footer-social {
-        margin-top: 20px;
-        display: flex;
-        gap: 15px;
-    }
-    
-    .footer-links h4,
-    .footer-contact h4 {
-        margin-bottom: 20px;
-        font-size: 1.2rem;
-    }
-    
-    .footer-links ul {
-        list-style: none;
-        padding: 0;
-    }
-    
-    .footer-links li {
-        margin-bottom: 12px;
-    }
-    
-    .footer-contact p {
-        margin-bottom: 10px;
-    }
-    
-    .footer-bottom {
-        padding-top: 30px;
-        border-top: 1px solid var(--border-color);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-    
-    .footer-legal {
-        display: flex;
-        gap: 20px;
-    }
-    /* Responsive Design */
-    
-    @media (max-width: 992px) {
-        h1 {
-            font-size: 2.8rem;
-        }
-        h2 {
-            font-size: 2.2rem;
-        }
-        .contact-container {
-            grid-template-columns: 1fr;
-        }
-    }
-    
-    @media (max-width: 768px) {
-        .menu-toggle {
-            display: flex;
-        }
-        .nav-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background-color: var(--primary-bg);
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 0;
-            border-top: 1px solid var(--border-color);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s ease;
-        }
-        .nav-menu.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        .nav-menu li {
-            margin: 15px 0;
-        }
-        .hero {
-            padding: calc(var(--spacing-2xl) + 56px) 0 var(--spacing-xl);
-        }
-        .hero-content {
-            max-width: 100%;
-        }
-        .hero-buttons {
-            flex-direction: column;
-            gap: 10px;
-        }
-        .form-group {
-            width: 100%;
-        }
-        .menu-toggle.active .bar:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
-        }
-        .menu-toggle.active .bar:nth-child(2) {
-            opacity: 0;
-        }
-        .menu-toggle.active .bar:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
-        }
-        .footer-bottom {
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
-            text-align: center;
-        }
-    }
-    
-    @media (max-width: 576px) {
-        h1 {
-            font-size: 2.3rem;
-        }
-        h2 {
-            font-size: 1.8rem;
-        }
-        .section {
-            padding: 60px 0;
-        }
-    }
-    
-    .btn-email {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin: 10px 0;
-        background-color: var(--btn-bg);
-        color: var(--btn-text);
-        border: 1px solid var(--btn-border);
-        padding: 10px 20px;
-        border-radius: 4px;
-        transition: all 0.2s ease;
-    }
-    
-    .btn-email:hover {
-        background-color: var(--btn-hover-bg);
-        color: var(--btn-hover-text);
-        transform: translateY(-1px);
-    }
-    /* Carousel Styles */
-    
-    .carousel {
-        position: relative;
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        overflow: hidden;
-        border-radius: 12px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        aspect-ratio: 16/9;
-    }
-    
-    .carousel-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        transition: transform 0.5s ease-in-out;
-    }
-    
-    .carousel-item {
-        min-width: 100%;
-        height: 100%;
-        object-fit: contain;
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: rgba(0, 0, 0, 0.8);
-        padding: 20px;
-    }
-    
-    .carousel-item.active {
-        opacity: 1;
-    }
-    
-    .carousel-control {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(0, 0, 0, 0.5);
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        transition: all 0.3s ease;
-        z-index: 2;
-    }
-    
-    .carousel-control:hover {
-        background: rgba(0, 0, 0, 0.8);
-    }
-    
-    .carousel-control.prev {
-        left: 20px;
-    }
-    
-    .carousel-control.next {
-        right: 20px;
-    }
-    
-    .carousel-indicators {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 10px;
-        z-index: 2;
-    }
-    
-    .indicator {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        border: 2px solid white;
-        background: transparent;
-        cursor: pointer;
-        padding: 0;
-        transition: all 0.3s ease;
-    }
-    
-    .indicator.active {
-        background: white;
-    }
-</style>
+            // Scroll animations
+            function checkVisibility() {
+                const elements = document.querySelectorAll('.service-card, .process-step, .pricing-card');
+                elements.forEach(element => {
+                    const position = element.getBoundingClientRect();
+                    // If element is in viewport
+                    if (position.top < window.innerHeight * 0.8) {
+                        element.classList.add('animate-fade-in');
+                    }
+                });
+            }
+            
+            // Check visibility on load
+            checkVisibility();
+            
+            // Check visibility on scroll
+            window.addEventListener('scroll', checkVisibility);
+        });
+    </script>
+</body>
+</html>
