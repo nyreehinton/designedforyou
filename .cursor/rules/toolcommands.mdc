@@ -1,0 +1,77 @@
+---
+description: Command-line tools available in the content-ops-starter project
+globs: ["scripts/*.js", "scripts/tools/*.js", "package.json"]
+alwaysApply: true
+---
+
+# Content Operations Command-Line Tools
+
+This document provides a reference for all command-line tools available in the content-ops-starter project.
+
+## Available Commands
+
+### Content Generation
+
+- **generate-page**: Create HTML-TSX file pairs from a content brief
+  ```bash
+  npm run generate-page <pageName> -- --title "Page Title" --description "Page description"
+  ```
+
+- **fix-md-errors**: Fix common Markdown formatting issues in content files
+  ```bash
+  npm run fix-md
+  ```
+
+### Validation & Testing
+
+- **validate-pairing**: Check for mismatches between HTML placeholders and TSX props
+  ```bash
+  npm run validate-pairing -- --single <pageName>
+  ```
+
+- **generate-test**: Create automated test scaffolding for HTML-TSX pairs
+  ```bash
+  npm run generate-test -- -p <pageName> -t component
+  ```
+
+### Performance & Enhancement
+
+- **optimize-performance**: Analyze and optimize HTML-TSX pairs
+  ```bash
+  npm run optimize-performance -- -p <pageName> --lazy-load
+  ```
+
+- **enhance-interaction**: Add client-side features (toggles, animations)
+  ```bash
+  npm run enhance-interaction -- -p <pageName> -t toggle -e "#element"
+  ```
+
+### Deployment
+
+- **deploy-preview**: Configure Netlify deployment preview settings
+  ```bash
+  npm run deploy-preview -- -f -e -b "staging"
+  ```
+
+### Agent Tools
+
+- **think-tool**: Enhance AI agent reasoning for complex tasks
+  ```bash
+  node scripts/tools/test-think-tool.js
+  # or
+  node scripts/tools/index.js
+  ```
+
+## Common Options
+
+Most commands support these options:
+- `-v, --verbose`: Display detailed output
+- `-h, --help`: Show help information
+- `--version`: Show version information
+
+## Adding New Commands
+
+To add a new command:
+1. Create a script in the `scripts/` directory
+2. Make it executable (`chmod +x scripts/your-script.js`)
+3. Add an entry to the `scripts` section in `package.json`

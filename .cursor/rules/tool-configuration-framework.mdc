@@ -1,0 +1,278 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Tool Configuration Framework
+
+## Development Environment
+
+### Code Editor
+- **VS Code Configuration**
+  ```json
+  {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "tailwindCSS.includeLanguages": {
+      "typescript": "javascript",
+      "typescriptreact": "javascript"
+    }
+  }
+  ```
+
+- **Required Extensions**
+  - ESLint
+  - Prettier
+  - Tailwind CSS IntelliSense
+  - GitLens
+  - TypeScript Error Translator
+
+### Project Configuration
+
+- **ESLint**
+  ```json
+  {
+    "extends": [
+      "next",
+      "next/core-web-vitals",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "react/no-unescaped-entities": "off",
+      "@typescript-eslint/no-unused-vars": ["error"]
+    }
+  }
+  ```
+
+- **Prettier**
+  ```json
+  {
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "printWidth": 100,
+    "semi": true,
+    "tabWidth": 2
+  }
+  ```
+
+- **TypeScript**
+  ```json
+  {
+    "compilerOptions": {
+      "target": "es5",
+      "lib": ["dom", "dom.iterable", "esnext"],
+      "allowJs": true,
+      "skipLibCheck": true,
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "noEmit": true,
+      "esModuleInterop": true,
+      "module": "esnext",
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "jsx": "preserve",
+      "incremental": true,
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["src/*"]
+      }
+    },
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "exclude": ["node_modules"]
+  }
+  ```
+
+## Integration Tools
+
+### Content Transformation
+
+- **HTML to TSX Conversion**
+  ```bash
+  # Install required packages
+  npm install --save-dev @babel/core @babel/preset-react html-to-react
+
+  # Create conversion script
+  echo '
+  const babel = require("@babel/core");
+  const fs = require("fs");
+  const path = require("path");
+  const HTMLtoJSX = require("html-to-react").Parser;
+
+  const htmlPath = process.argv[2];
+  const outputPath = process.argv[3] || htmlPath.replace(".html", ".tsx");
+
+  const htmlContent = fs.readFileSync(htmlPath, "utf8");
+  const parser = new HTMLtoJSX();
+  const jsx = parser.parse(htmlContent);
+
+  const tsxTemplate = `
+  import React from "react";
+
+  const Component: React.FC = () => {
+    return (${jsx});
+  };
+
+  export default Component;
+  `;
+
+  const { code } = babel.transformSync(tsxTemplate, {
+    presets: ["@babel/preset-react"],
+    filename: path.basename(outputPath)
+  });
+
+  fs.writeFileSync(outputPath, code);
+  console.log(`Converted ${htmlPath} to ${outputPath}`);
+  ' > scripts/html-to-tsx.js
+
+  # Usage: node scripts/html-to-tsx.js path/to/file.html
+  ```
+
+- **Tailwind CSS Extractor**
+  ```bash
+  # Create script to extract Tailwind classes from HTML
+  echo '
+  const fs = require("fs");
+  const path = require("path");
+  const { parse } = require("node-html-parser");
+
+  const htmlPath = process.argv[2];
+  const outputPath = process.argv[3] || htmlPath.replace(".html", ".module.css");
+
+  const htmlContent = fs.readFileSync(htmlPath, "utf8");
+  const root = parse(htmlContent);
+  const allElements = root.querySelectorAll("*");
+
+  const classMap = {};
+  allElements.forEach((el, index) => {
+    const classes = el.classList.value.split(" ").filter(Boolean);
+    if (classes.length) {
+      const selector = el.tagName.toLowerCase();
+      const cssClass = `${selector}_${index}`;
+      classMap[cssClass] = classes.join(" ");
+    }
+  });
+
+  const cssContent = Object.entries(classMap)
+    .map(([className, tailwindClasses]) => {
+      return `.${className} {
+    /* Tailwind classes: ${tailwindClasses} */
+  }`;
+    })
+    .join("\n\n");
+
+  fs.writeFileSync(outputPath, cssContent);
+  console.log(`Extracted Tailwind classes from ${htmlPath} to ${outputPath}`);
+  ' > scripts/extract-tailwind.js
+
+  # Usage: node scripts/extract-tailwind.js path/to/file.html
+  ```
+
+### Validation Tools
+
+- **A11y Checker**
+  ```json
+  {
+    "scripts": {
+      "a11y": "pa11y-ci ./out/**/*.html"
+    }
+  }
+  ```
+
+- **HTML Validator**
+  ```json
+  {
+    "scripts": {
+      "validate:html": "html-validate src/**/*.html pages/**/*.html"
+    }
+  }
+  ```
+
+## Deployment Configuration
+
+### Netlify
+
+- **netlify.toml**
+  ```toml
+  [build]
+    command = "npm run build"
+    publish = "out"
+
+  [[plugins]]
+    package = "@netlify/plugin-nextjs"
+
+  [[headers]]
+    for = "/*"
+      [headers.values]
+        X-Frame-Options = "DENY"
+        X-XSS-Protection = "1; mode=block"
+        Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com"
+
+  [[redirects]]
+    from = "/*"
+    to = "/index.html"
+    status = 200
+  ```
+
+## Tooling Integration Matrix
+
+| Tool Category | Development | Testing | Building | Deployment |
+|---------------|-------------|---------|----------|------------|
+| VS Code       | ✅          | ⚠️      | ❌        | ❌         |
+| ESLint        | ✅          | ✅      | ❌        | ❌         |
+| Prettier      | ✅          | ✅      | ❌        | ❌         |
+| TypeScript    | ✅          | ✅      | ✅        | ❌         |
+| Jest          | ❌          | ✅      | ❌        | ❌         |
+| Cypress       | ❌          | ✅      | ❌        | ❌         |
+| Next.js       | ✅          | ✅      | ✅        | ✅         |
+| Tailwind CSS  | ✅          | ❌      | ✅        | ❌         |
+| Netlify CLI   | ✅          | ❌      | ❌        | ✅         |
+| HTML Validate | ✅          | ✅      | ❌        | ❌         |
+| pa11y         | ❌          | ✅      | ❌        | ❌         |
+
+## Tool Installation Script
+
+```bash
+#!/bin/bash
+
+# Development dependencies
+npm install --save-dev \
+  typescript \
+  @types/react \
+  @types/node \
+  eslint \
+  @typescript-eslint/eslint-plugin \
+  @typescript-eslint/parser \
+  eslint-config-next \
+  prettier \
+  prettier-plugin-tailwindcss
+
+# Testing dependencies
+npm install --save-dev \
+  jest \
+  @testing-library/react \
+  @testing-library/jest-dom \
+  jest-environment-jsdom \
+  cypress
+
+# Validation tools
+npm install --save-dev \
+  html-validate \
+  pa11y-ci
+
+# Build tools
+npm install --save-dev \
+  next-bundle-analyzer
+
+# Content tools
+npm install --save-dev \
+  @babel/core \
+  @babel/preset-react \
+  html-to-react \
+  node-html-parser
+
+echo "All development tools installed!"
+```

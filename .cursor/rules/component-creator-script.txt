@@ -1,0 +1,519 @@
+#!/usr/bin/env node
+
+/**
+ * Component Creator Tool
+ * 
+ * Creates new components following the HTML-TSX Protocol with proper
+ * TypeScript interfaces, CSS modules, and directory structure.
+ * 
+ * Usage:
+ *   cursor-tool component-create MyComponent --type page --app myapp
+ */
+
+const fs = require('fs');
+const path = require('path');
+const logger = require('./logger');
+const toolRegistry = require('./tool-registry-enhanced');
+
+/**
+ * ComponentCreatorInput defines the input parameters for the component creator
+ */
+class ComponentCreatorInput {
+    /**
+     * Create a new ComponentCreatorInput
+     * 
+     * @param {string} name - Component name
+     * @param {Object} options - Component options
+     * @param {string} options.type - Component type (page, block, ui)
+     * @param {string} options.app - Optional app name for integration
+     * @param {string} options.description - Component description
+     * @param {boolean} options.withTest - Generate test file
+     * @param {boolean} options.withStory - Generate Storybook story
+     * @param {string} options.projectRoot - Project root directory
+     */
+    constructor(name, options = {}) {
+        this.name = name;
+        this.options = {
+            type: options.type || 'ui',
+            app: options.app || '',
+            description: options.description || '',
+            withTest: options.withTest || false,
+            withStory: options.withStory || false,
+            projectRoot: options.projectRoot || process.cwd()
+        };
+    }
+}
+
+/**
+ * Get directory paths based on project structure
+ * 
+ * @param {string} projectRoot - Project root directory
+ * @returns {Object} - Directory paths
+ */
+function getDirectoryPaths(projectRoot) {
+    // Check if src directory exists
+    const hasSrcDir = fs.existsSync(path.join(projectRoot, 'src'));
+    
+    // Default paths
+    const paths = {
+        components: hasSrcDir ? path.join(projectRoot, 'src', 'components') : path.join(projectRoot, 'components'),
+        pages: hasSrcDir ? path.join(projectRoot, 'src', 'pages') : path.join(projectRoot, 'pages'),
+        styles: hasSrcDir ? path.join(projectRoot, 'src', 'styles') : path.join(projectRoot, 'styles'),
+        public: path.join(projectRoot, 'public'),
+        test: path.join(projectRoot, '__tests__')
+    };
+    
+    // Create directories if they don't exist
+    Object.values(paths).forEach(dir => {
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+            logger.info(`Created directory: ${dir}`);
+        }
+    });
+    
+    return paths;
+}
+
+/**
+ * Generate component code
+ * 
+ * @param {string} name - Component name
+ * @param {string} type - Component type
+ * @param {string} app - App name (optional)
+ * @returns {string} - Component code
+ */
+function generateComponentCode(name, type, app = '') {
+    const className = app 
+        ? `@/styles/${app.toLowerCase()}-${name.toLowerCase()}.module.css` 
+        : `@/styles/${name.toLowerCase()}.module.css`;
+    
+    return `import React from 'react';
+import styles from '${className}';
+
+${type === 'page' 
+    ? `// Page component props
+interface ${name}Props {
+  title?: string;
+  description?: string;
+  className?: string;
+}` 
+    : `// Component props
+interface ${name}Props {
+  className?: string;
+  children?: React.ReactNode;
+}`}
+
+/**
+ * ${name} ${type} component
+ ${app ? `* Part of the ${app} application` : ''}
+ * 
+ * @param props - Component properties
+ * @returns React component
+ */
+const ${name}: React.FC<${name}Props> = ({ 
+  ${type === 'page' 
+    ? 'title = "Default Title", description = "Default description", className = ""' 
+    : 'className = "", children'} 
+}) => {
+  return (
+    <div className={${app ? `\`\${styles.root} \${styles.container} \${className}\`` : '`${styles.root} ${className}`'}}>
+      ${type === 'page' 
+        ? `<div className={styles.header}>
+        <h1 className={styles.title}>{title}</h1>
+        <p className={styles.description}>{description}</p>
+      </div>
+      <div className={styles.content}>
+        {/* Page content goes here */}
+      </div>`
+        : `{/* Component content */}
+      {children}`}
+    </div>
+  );
+};
+
+export default ${name};
+`;
+}
+
+/**
+ * Generate CSS module code
+ * 
+ * @param {string} name - Component name
+ * @param {string} app - App name (optional)
+ * @returns {string} - CSS module code
+ */
+function generateCssModule(name, app = '') {
+    const prefix = app ? `--${app.toLowerCase()}-` : '--app-';
+    const isPage = name.toLowerCase().endsWith('page');
+    
+    return `/* ${name} styles */
+.root {
+  /* CSS variables scoped to this component */
+  ${prefix}primary-color: #0a2856;
+  ${prefix}secondary-color: #c19b4a;
+  ${prefix}text-color: #333333;
+  ${prefix}background-color: #ffffff;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+${isPage 
+  ? `.header {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(${prefix}primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  font-size: 1rem;
+  color: var(${prefix}text-color);
+}
+
+.content {
+  flex: 1;
+}`
+  : '/* Additional component-specific styles */'}
+`;
+}
+
+/**
+ * Generate HTML page code
+ * 
+ * @param {string} name - Component name
+ * @returns {string} - HTML page code
+ */
+function generateHtmlPage(name) {
+    const title = name.replace(/([A-Z])/g, ' $1').trim();
+    
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${title}</title>
+</head>
+<body>
+  <main data-component-id="${name.toLowerCase()}" 
+        data-props='{"title":"${title}","description":"${title} page description"}'>
+    <h1>${title}</h1>
+    <p>${title} page description</p>
+    <div class="content">
+      <!-- Page content goes here -->
+    </div>
+  </main>
+</body>
+</html>
+`;
+}
+
+/**
+ * Generate test file for component
+ * 
+ * @param {string} name - Component name
+ * @returns {string} - Test file code
+ */
+function generateTestFile(name) {
+    return `import React from 'react';
+import { render, screen } from '@testing-library/react';
+import ${name} from '@/components/${name.toLowerCase().endsWith('page') ? 'pages/' : ''}${name}';
+
+describe('${name} component', () => {
+  test('renders correctly', () => {
+    render(<${name} ${name.toLowerCase().endsWith('page') ? 'title="Test Title" description="Test description"' : ''} />);
+    
+    ${name.toLowerCase().endsWith('page') 
+      ? "expect(screen.getByText('Test Title')).toBeInTheDocument();"
+      : "expect(screen.getByRole('div')).toBeInTheDocument();"}
+  });
+});
+`;
+}
+
+/**
+ * Generate Storybook story for component
+ * 
+ * @param {string} name - Component name
+ * @returns {string} - Story file code
+ */
+function generateStoryFile(name) {
+    return `import React from 'react';
+import { Meta, StoryObj } from '@storybook/react';
+import ${name} from '@/components/${name.toLowerCase().endsWith('page') ? 'pages/' : ''}${name}';
+
+const meta: Meta<typeof ${name}> = {
+  title: '${name.toLowerCase().endsWith('page') ? 'Pages' : 'Components'}/${name}',
+  component: ${name},
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
+};
+
+export default meta;
+type Story = StoryObj<typeof ${name}>;
+
+export const Default: Story = {
+  args: {
+    ${name.toLowerCase().endsWith('page') 
+      ? `title: '${name}',
+    description: 'Example ${name} component'`
+      : `children: 'Example content'`}
+  },
+};
+
+export const CustomStyle: Story = {
+  args: {
+    ${name.toLowerCase().endsWith('page') 
+      ? `title: 'Custom Style',
+    description: 'Example with custom styling'`
+      : `children: 'Custom styled content'`},
+    className: 'custom-class',
+  },
+};
+`;
+}
+
+/**
+ * Create component files
+ * 
+ * @param {ComponentCreatorInput} input - Component creator input
+ * @returns {Promise<Object>} - Result object with status and file paths
+ */
+async function componentCreator(input) {
+    try {
+        // Normalize component name to PascalCase
+        let componentName = input.name;
+        if (!componentName.match(/^[A-Z][a-zA-Z0-9]*$/)) {
+            componentName = componentName
+                .replace(/[\W_]+/g, ' ')
+                .split(' ')
+                .map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+                .join('');
+        }
+        
+        // Get directory paths
+        const dirs = getDirectoryPaths(input.options.projectRoot);
+        
+        // Determine component directory based on type and app name
+        let componentDir;
+        const app = input.options.app;
+        const type = input.options.type;
+        
+        if (app) {
+            componentDir = path.join(dirs.components, app.toLowerCase());
+            
+            // For app components, organize by component type
+            if (type === 'ui') {
+                componentDir = path.join(componentDir, 'ui');
+            } else if (type === 'layout') {
+                componentDir = path.join(componentDir, 'layout');
+            } else if (type === 'page') {
+                componentDir = path.join(componentDir, 'pages');
+            }
+        } else {
+            if (type === 'page') {
+                componentDir = path.join(dirs.components, 'pages');
+            } else if (type === 'block') {
+                componentDir = path.join(dirs.components, 'blocks');
+            } else {
+                componentDir = path.join(dirs.components, 'ui');
+            }
+        }
+        
+        // Create directories if they don't exist
+        if (!fs.existsSync(componentDir)) {
+            fs.mkdirSync(componentDir, { recursive: true });
+            logger.info(`Created directory: ${componentDir}`);
+        }
+        
+        // Create component file
+        const componentPath = path.join(componentDir, `${componentName}.tsx`);
+        const componentCode = generateComponentCode(componentName, type, app);
+        fs.writeFileSync(componentPath, componentCode);
+        logger.info(`Created component: ${componentPath}`);
+        
+        // Create CSS module
+        let cssModulePath;
+        if (app) {
+            cssModulePath = path.join(dirs.styles, `${app.toLowerCase()}-${componentName.toLowerCase()}.module.css`);
+        } else {
+            cssModulePath = path.join(dirs.styles, `${componentName.toLowerCase()}.module.css`);
+        }
+        const cssModuleCode = generateCssModule(componentName, app);
+        fs.writeFileSync(cssModulePath, cssModuleCode);
+        logger.info(`Created CSS module: ${cssModulePath}`);
+        
+        // Create HTML file for pages
+        let htmlPath;
+        if (type === 'page') {
+            const kebabName = componentName
+                .replace(/([a-z])([A-Z])/g, '$1-$2')
+                .replace(/\s+/g, '-')
+                .toLowerCase();
+            
+            htmlPath = path.join(
+                app ? path.join(dirs.public, app.toLowerCase()) : dirs.public, 
+                `${kebabName}.html`
+            );
+            
+            // Create directory if it doesn't exist
+            if (!fs.existsSync(path.dirname(htmlPath))) {
+                fs.mkdirSync(path.dirname(htmlPath), { recursive: true });
+            }
+            
+            const htmlCode = generateHtmlPage(componentName);
+            fs.writeFileSync(htmlPath, htmlCode);
+            logger.info(`Created HTML page: ${htmlPath}`);
+        }
+        
+        // Create test file if requested
+        let testPath;
+        if (input.options.withTest) {
+            testPath = path.join(
+                dirs.test, 
+                app ? app.toLowerCase() : '',
+                `${componentName}.test.tsx`
+            );
+            
+            // Create directory if it doesn't exist
+            if (!fs.existsSync(path.dirname(testPath))) {
+                fs.mkdirSync(path.dirname(testPath), { recursive: true });
+            }
+            
+            const testCode = generateTestFile(componentName);
+            fs.writeFileSync(testPath, testCode);
+            logger.info(`Created test file: ${testPath}`);
+        }
+        
+        // Create story file if requested
+        let storyPath;
+        if (input.options.withStory) {
+            storyPath = path.join(
+                dirs.components,
+                'stories',
+                app ? app.toLowerCase() : '',
+                `${componentName}.stories.tsx`
+            );
+            
+            // Create directory if it doesn't exist
+            if (!fs.existsSync(path.dirname(storyPath))) {
+                fs.mkdirSync(path.dirname(storyPath), { recursive: true });
+            }
+            
+            const storyCode = generateStoryFile(componentName);
+            fs.writeFileSync(storyPath, storyCode);
+            logger.info(`Created story file: ${storyPath}`);
+        }
+        
+        return {
+            success: true,
+            componentName,
+            files: {
+                component: componentPath,
+                cssModule: cssModulePath,
+                html: htmlPath,
+                test: testPath,
+                story: storyPath
+            }
+        };
+    } catch (error) {
+        logger.error(`Error creating component: ${error.message}`);
+        return {
+            success: false,
+            error: error.message
+        };
+    }
+}
+
+// Main function when script is run directly
+async function main() {
+    // Parse command line arguments
+    const args = process.argv.slice(2);
+    let componentName = '';
+    let type = 'ui';
+    let app = '';
+    let withTest = false;
+    let withStory = false;
+    
+    for (let i = 0; i < args.length; i++) {
+        if (args[i] === '--name' && args[i + 1]) {
+            componentName = args[i + 1];
+            i++;
+        } else if (args[i] === '--type' && args[i + 1]) {
+            type = args[i + 1];
+            i++;
+        } else if (args[i] === '--app' && args[i + 1]) {
+            app = args[i + 1];
+            i++;
+        } else if (args[i] === '--with-test') {
+            withTest = true;
+        } else if (args[i] === '--with-story') {
+            withStory = true;
+        } else if (!componentName && !args[i].startsWith('--')) {
+            componentName = args[i];
+        }
+    }
+    
+    if (!componentName) {
+        console.error('Error: Component name is required.');
+        console.log('Usage: cursor-tool component-create [name] --type [page|block|ui] --app [app-name]');
+        process.exit(1);
+    }
+    
+    const input = new ComponentCreatorInput(componentName, {
+        type,
+        app,
+        withTest,
+        withStory
+    });
+    
+    try {
+        const result = await componentCreator(input);
+        
+        if (result.success) {
+            console.log('\nComponent created successfully:');
+            console.log(`- Component: ${result.componentName}`);
+            console.log(`- Type: ${type}`);
+            if (app) console.log(`- App: ${app}`);
+            
+            console.log('\nCreated files:');
+            Object.entries(result.files).forEach(([key, filePath]) => {
+                if (filePath) console.log(`- ${key}: ${filePath}`);
+            });
+        } else {
+            console.error(`Error: ${result.error}`);
+            process.exit(1);
+        }
+    } catch (error) {
+        console.error(`Unexpected error: ${error.message}`);
+        process.exit(1);
+    }
+}
+
+// Register with the tool registry when imported
+toolRegistry.registerTool('component-creator', componentCreator, {
+    description: 'Creates new components following the HTML-TSX Protocol',
+    parameters: ['name', 'options'],
+    category: 'development',
+    author: 'Cursor',
+    version: '1.0.0'
+});
+
+// If script is run directly
+if (require.main === module) {
+    main();
+}
+
+module.exports = {
+    ComponentCreatorInput,
+    componentCreator
+};

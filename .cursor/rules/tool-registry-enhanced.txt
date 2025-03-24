@@ -1,0 +1,57 @@
+/**
+ * Enhanced Tool Registry for Cursor
+ * 
+ * A central registry for managing and accessing tools within the cursor environment.
+ * This module provides:
+ * 
+ * 1. Tool registration and lookup
+ * 2. MCP context-specific tool activation
+ * 3. Tool execution with metrics tracking
+ * 4. Dependency management between tools
+ * 5. Dynamic tool discovery
+ */
+
+const fs = require('fs');
+const path = require('path');
+const logger = require('./logger');
+
+class ToolRegistry {
+    constructor() {
+        this.tools = new Map();
+        this.metrics = {
+            calls: {},
+            timing: {},
+            errors: {}
+        };
+        this.mcpContext = null;
+        this.configPath = process.env.CURSOR_CONFIG_PATH || path.join(require('os').homedir(), '.cursor', 'config');
+    }
+
+    /**
+     * Load MCP configuration from file
+     * 
+     * @returns {Object|null} - The MCP configuration or null if not found
+     */
+    loadMcpConfig() {
+        try {
+            const mcpPath = path.join(this.configPath, 'mcp.json');
+            if (fs.existsSync(mcpPath)) {
+                const mcpConfig = JSON.parse(fs.readFileSync(mcpPath, 'utf8'));
+                logger.info(`Loaded MCP config version ${mcpConfig.version}`);
+                return mcpConfig;
+            } else {
+                logger.warn(`MCP config not found at ${mcpPath}`);
+                return null;
+            }
+        } catch (error) {
+            logger.error(`Error loading MCP config: ${error.message}`);
+            return null;
+        }
+    }
+
+    /**
+     * Set the active MCP context
+     * 
+     * @param {string} contextId - The MCP context ID to activate
+     */
+    

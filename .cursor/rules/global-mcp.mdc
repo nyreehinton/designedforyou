@@ -1,0 +1,579 @@
+---
+description: Model Context Protocol guidelines for content operations
+globs: ["src/**/*.tsx", "src/**/*.html", "public/**/*.html"]
+alwaysApply: true
+---
+# Model Context Protocol
+
+PART 1
+
+MODEL CONTEXT PROTOCOL
+
+⸻
+
+1. Introduction and Purpose
+
+This Model Context Protocol (MCP) standardizes how AI models interact with various web development contexts—particularly focusing on HTML-TSX paired approaches, Netlify deployment, and broader integration strategies (including Next.js, Angular, Gatsby, etc.).
+
+Primary Goals:
+ • Ensure consistent development flow for HTML-TSX paired pages.
+ • Provide a unified reference for Netlify features, edge functions, and advanced tooling.
+ • Clarify content operation commands and best practices for performance, testing, and security.
+ • Establish guidelines for full-lifecycle synergy: from content generation to final deployment.
+
+⸻
+
+1. File Structure Protocol
+
+2.1 HTML-TSX Pairing Convention
+ • Each web page requires both an HTML file and a corresponding TSX component.
+ • Naming Convention: pageName.html and pageName.tsx must share identical base names (e.g., products.html / products.tsx).
+ • Maintain parallel hierarchies for HTML and TSX files in the repository structure.
+
+2.2 Component Relationship Mapping
+ • HTML documents must include data attributes or IDs that link to the TSX component references.
+ • TSX components must reference the same IDs used in the HTML markup for hydration.
+ • Metadata in HTML <head> must align with props in TSX components (e.g., <meta> tags should match TSX fields).
+
+⸻
+
+1. Development Tools and Frameworks
+
+3.1 Static Site Generators
+
+Several SSGs (Static Site Generators) are recommended for use with Netlify. Each addresses different complexity and performance needs:
+ • Hugo:
+ • Fast, lightweight, minimal templating overhead.
+ • Optimal for smaller/medium sites prioritizing simple HTML.
+ • Jekyll:
+ • Simple, blog-centric.
+ • Great for markdown-based sites and personal/portfolio pages.
+ • Gatsby:
+ • Uses React and JSX, powerful for dynamic features.
+ • Best for larger or highly dynamic sites with data integrations.
+ • Astro:
+ • Emphasizes partial hydration and performance.
+ • Builds extremely effic-loadventy:
+ • Flexible JavaScript-based SSG.
+ • Straightforward to integrate with Netlify for quick builds.
+
+3.2 UI Component Libraries
+
+For visually appealing interfaces and quick styling:
+ • Bootstrap:
+ • Pre-built components that can be integrated quickly via HTML classes.
+ • Best for time-efficient, consistent design with minimal overhead.
+ • Tailwind CSS:
+ • Utility-first approach.
+ • Write styles directly in HTML for highly custom visuals.
+
+3.3 Chart and Visualization Libraries
+ • Chart.js:
+ • Straightforward integration using <canvas> elements.
+ • Supports a variety of chart types (bar, line, pie, etc.).
+
+3.4 Animation and Dynamic Features
+ • GSAP (GreenSock Animation Platform):
+ • Powerful for advanced animations with many control options.
+ • Anime.js:
+ • A lighter library, ideal for simpler motion effects.
+
+3.5 Interactivity Solutions
+ • Alpine.js:
+ • Lightweight, attribute-based directives that integrate well into HTML.
+ • React:
+ • Ideal for complex client-side interactions and data-driven states, especially with Gatsby or Next.js.
+ • Vanilla JavaScript:
+ • Direct DOM manipulation and event listeners for smaller custom projects.
+
+⸻
+
+PART 2
+
+1. Content Generation Rules
+
+⸻
+
+4.1 HTML Output Specifications
+
+ 1. Complete HTML Documents
+
+ • Must include proper <!DOCTYPE html> declaration.
+ • Use semantic HTML5 elements (e.g., **header**, **main**, **footer**).
+
+ 1. Accessibility Requirements
+
+ • Include descriptive <title> and meta tags.
+ • Provide alt text for images and aria attributes where applicable.
+
+ 1. Server-Rendered Content
+
+ • Ensure all critical content is available without JavaScript.
+ • Inline critical CSS for faster rendering.
+
+ 1. Placeholder Attributes
+
+ • Use placeholders for dynamic content.
+ • Example: <div data-dynamic-content="egg-stats"></div> can be hydrated by the TSX component.
+
+⸻
+
+4.2 TSX Implementation Guidelines
+
+ 1. Hydration Alignment
+
+ • TSX components must reference the same IDs/data attributes defined in the HTML file.
+ • Ensure prop names in TSX match any declared data attributes.
+
+ 1. Separation of Concerns
+
+ • Keep purely presentational markup in HTML.
+ • Focus interactive logic and state management in TSX.
+
+ 1. TypeScript Interfaces
+
+ • Define strict interfaces for component props.
+ • Example:
+
+interface EggCrisisProps {
+  stats: Record<string, number>;
+  region: string;
+}
+
+ 1. Rendering
+
+ • For frameworks like Next.js or Gatsby, wrap content with the appropriate framework functions (e.g., getStaticProps, Head component).
+ • Maintain consistent directory structure (/pages, /components, etc.).
+
+⸻
+
+1. Synchronization Protocol
+
+⸻
+
+5.1 Change Management
+
+ 1. Paired Updates
+
+ • Any update to an .html file must have a corresponding update to the .tsx file.
+ • Changes to text, structure, or data attributes in HTML should be reflected in TSX prop definitions or references.
+
+ 1. Diff Generation
+
+ • When requesting changes, models generate diffs for both HTML and TSX to maintain transparency.
+ • This helps reviewers see exactly what changed in each file.
+
+ 1. Performance Budgets
+
+ • Consider performance impacts of any change (e.g., new images, heavy scripts).
+ • Maintain or improve time-to-interactive and bundle size constraints.
+
+⸻
+
+5.2 Consistency Validation
+
+ 1. Automated Checks
+
+ • Run integrity checks that compare HTML placeholders to TSX props.
+ • Identify mismatches (e.g., missing or incorrect ID references).
+
+ 1. Continuous Testing
+
+ • Integrate tests (unit, E2E, or snapshot) to confirm hydration is working properly.
+ • Confirm that server-rendered content remains functional if JavaScript is disabled.
+
+ 1. Hydration Mismatch Prevention
+
+ • Validate that the server-rendered HTML structure matches what TSX expects.
+ • Avoid SSR/CSR drift (e.g., frameworks like Next.js or Astro can warn of hydration mismatches in dev mode).
+
+⸻
+
+1. Netlify Integration
+
+⸻
+
+6.1 Deployment Features
+
+ 1. Netlify Forms
+
+ • Add forms via `form data-netlify="true"`.
+ • Automatic form submission handling on Netlify’s backend.
+
+ 1. Netlify Functions
+
+ • Serverless functions housed in the netlify/functions directory.
+ • Ideal for dynamic data fetching, custom endpoints, or real-time logic.
+
+ 1. Netlify Edge Functions
+
+ • Execute logic at Netlify’s edge nodes for faster, more localized responses.
+ • Provide personalization or A/B testing at the edge.
+
+ 1. On-demand Builders
+
+ • Generate or update content on-the-fly using serverless functions, cached on Netlify’s Edge CDN.
+ • Useful for rapidly changing data while keeping static build times low.
+
+ 1. Netlify Blobs
+
+ • Store unstructured data (key/value).
+ • Serves as a simpler alternative to a full database.
+
+⸻
+
+6.2 Configuration Options
+
+ 1. netlify.toml
+
+ • Primary file-based configuration for build settings, redirects, headers, etc.
+ • Example snippet:
+
+[build]
+  command = "npm run build"
+  publish = "build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+ 1. Environment Variables
+
+ • Set build-time or runtime secrets securely in Netlify’s UI or in the netlify.toml under [context].
+
+ 1. Build Hooks
+
+ • Trigger builds or incremental deployments from external sources (e.g., webhooks on content changes).
+
+ 1. Build Plugins
+
+ • Extend Netlify’s build process with community or custom plugins (e.g., image optimization, cache busting).
+
+⸻
+
+6.3 Framework Integration
+
+ 1. Next.js Adapter
+
+ • Use @netlify/next or the Next.js Runtime for Netlify.
+ • Supports ISR (Incremental Static Regeneration) and Edge Middleware.
+
+ 1. Hydrogen Integration
+
+ • Deploy Shopify Hydrogen storefronts on Netlify for commerce experiences.
+
+ 1. Multiple Frameworks
+
+ • Angular, Express, Astro, Hydrogen, Gatsby, Hugo, Eleventy.
+ • Reference Netlify’s official or community adapters where available.
+
+⸻
+
+Below is PART 3 of the Comprehensive Model Context Protocol (MCP). It covers Model Interaction Guidelines, Content Operation Commands, an Extended Tooling overview, and Implementation Examples.
+
+⸻
+
+PART 3
+
+⸻
+
+1. Model Interaction Guidelines
+
+These guidelines describe how AI models (or automated scripts) should handle file generation, updates, and consistency across HTML-TSX pairs. The goal is to ensure clean, integrated workflows from content creation to Netlify deployment.
+
+7.1 Content Operation Commands
+
+Below are the primary commands (merged from both the Claudie and Grok MCPs) that the model or automated scripts should support. Each command ensures paired HTML-TSX consistency, proper Netlify configuration, and best practices for performance and security.
+
+⸻
+
+generate-page
+ • Purpose:
+Creates a matched HTML-TSX pair from a content brief (e.g., page title, purpose, sections).
+ • Instructions:
+
+ 1. Provide a content brief with page details (e.g., “Weather Update” page with a chart).
+
+ 2. Specify any design/performance constraints (e.g., minimal JavaScript, or < 2s TTFB).
+
+ 3. Model should output both pageName.html and pageName.tsx with matching IDs and placeholders.
+
+ • Example Use:
+“Generate a ‘Weather Dashboard’ page showing current temperature and a bar chart for weekly highs.”
+ • Optimization Tips:
+ • Include references to any design systems (e.g., Tailwind, Bootstrap) for consistent styling.
+ • Note any Netlify features (forms, serverless functions) to include.
+
+⸻
+
+update-content
+ • Purpose:
+Modifies existing content while preserving HTML-TSX consistency.
+ • Instructions:
+
+ 1. Upload the existing .html and .tsx files.
+
+ 2. Specify changes (text, new sections, data placeholders).
+
+ 3. Model outputs paired diffs or updated files with any newly required props in TSX.
+
+ • Example Use:
+“Update the ‘Egg Price Surge’ page to include a new paragraph on supply chain disruptions and rename the chart.”
+ • Optimization Tips:
+ • Keep performance budgets in mind (e.g., avoid large inline scripts).
+ • Maintain valid TypeScript interfaces for any changed data.
+
+⸻
+
+enhance-interaction
+ • Purpose:
+Adds client-side features (animations, toggles, dynamic charts) without breaking existing server-rendered content.
+ • Instructions:
+
+ 1. Provide the HTML-TSX pair and a list of desired interactive features (e.g., Alpine.js toggles, React states).
+
+ 2. The model integrates new scripts or code blocks.
+
+ 3. Return updated .html and .tsx with clear markers for the enhancements.
+
+ • Example Use:
+“Enhance the ‘Sales Dashboard’ page with a toggle to switch between monthly and yearly data views in the chart.”
+ • Optimization Tips:
+ • Use progressive enhancement so the site remains functional if JavaScript fails.
+ • Maintain minimal bundle size (e.g., consider a small library like Alpine.js for simple toggles).
+
+⸻
+
+deploy-preview
+ • Purpose:
+Provides or updates Netlify deployment configurations for staging or production previews.
+ • Instructions:
+
+ 1. Upload your netlify.toml or relevant config.
+
+ 2. Specify new forms, environment variables, or serverless functions to include.
+
+ 3. Model outputs an updated config file or instructions for Netlify’s UI (e.g., environment variable setups).
+
+ • Example Use:
+“Create a deploy preview for the ‘Weather Dashboard’ page with Netlify Forms for user feedback.”
+ • Optimization Tips:
+ • Include advanced Netlify features (Edge Functions, On-demand Builders) if relevant.
+ • Verify that all redirect rules and security headers remain intact.
+
+⸻
+
+7.2 Additional Suggested Commands
+
+Beyond the core commands, the MCP recommends supplementary operations to improve workflow:
+ • validate-pairing
+ • Purpose: Checks for mismatches between the HTML placeholders and TSX props (IDs, data attributes, etc.).
+ • Instructions: Upload both files; the model reports or fixes inconsistencies.
+ • optimize-performance
+ • Purpose: Reviews current performance metrics (e.g., Lighthouse CI) and suggests improvements (e.g., smaller images, code splitting).
+ • Instructions: Provide logs or metrics, specify performance targets. The model returns updated configurations or code snippets.
+ • generate-test
+ • Purpose: Creates automated test scaffolding for unit, integration, or E2E tests.
+ • Instructions: Provide the relevant code and desired test framework (Jest, Cypress, etc.). The model outputs test files or configuration.
+
+⸻
+
+1. Extended Tooling
+
+In addition to the Development Tools and Frameworks highlighted in earlier sections, this expanded list covers a broader range of tools for development, testing, deployment, and performance optimization. Some items may overlap with previous references—those are included here again for completeness.
+
+ 1. Development & Functions
+
+ • Netlify CLI: Local dev and build/deploy simulations.
+ • Edge Functions: Serverless logic at the network edge.
+ • Async Workloads: Background tasks for data processing.
+ • On-demand Builders: Generate and cache content dynamically.
+
+ 1. Framework Integration
+
+ • Next.js Adapter & Runtime: Optimized Next.js deployment on Netlify.
+ • Angular, Express, Astro, Hydrogen, Gatsby, Hugo, Eleventy: Various official and community adapters.
+ • Frameworks API: Documentation for advanced custom integrations.
+
+ 1. Build & Configuration
+
+ • File-Based Configuration (netlify.toml): Centralizes build commands, redirects, headers.
+ • Environment Variables: Securely manage secrets and build-time settings.
+ • Build Plugins: Extend the build pipeline (e.g., image optimization, custom caching).
+ • Dependency Management: Analyze package.json for efficient builds.
+ • Build Hooks: Automate re-builds on external triggers.
+ • Monorepo Builds: Configure multi-project repos for unified deployments.
+
+ 1. Data & Storage
+
+ • Netlify Blobs: Key/value storage for unstructured data.
+ • Netlify Connect: Unified content/data APIs.
+ • Data Layer Management: Setup for synchronization and caching strategies.
+
+ 1. Forms & User Input
+
+ • Netlify Forms: Instantly capture form submissions with data-netlify="true".
+ • Spam Filters: Built-in or custom filters for submissions.
+ • Serverless Form Handling: Combine with Netlify Functions for advanced logic.
+
+ 1. Domain & HTTPS Management
+
+ • Custom Domains: DNS management within Netlify.
+ • Automatic HTTPS: Free SSL via Let’s Encrypt.
+ • Multiple Domain Management: Host multiple custom domains from a single Netlify account.
+
+ 1. Team & Account Management
+
+ • User Roles & Permissions: Granular controls for team members.
+ • Audit Logs: Track changes and deployments at an organizational level.
+ • Organization Management: Manage multiple sites or projects under one org.
+
+ 1. Monitoring & Troubleshooting
+
+ • Site Analytics: Performance and traffic insights.
+ • Build Troubleshooting: Log analysis to identify issues in the build process.
+ • DNS & HTTPS Troubleshooting: Tools to verify domain, certificate, or DNS resolution.
+ • Connect Activity Monitoring: Track Netlify Connect usage or API calls.
+
+ 1. Frontend Development Tools
+
+ • Netlify VS Code Extension: Deploy and manage sites from within VS Code.
+ • TypeScript Language Server: Type checking for TS/TSX projects.
+ • ESLint & Stylelint: Automated code linting.
+ • Netlify Dev: Local environment mirroring production settings.
+ • Hot Module Replacement (HMR): Faster dev feedback for frameworks like React or Vue.
+
+ 1. API & Integration Tools
+
+ • Netlify Functions: Create custom serverless APIs in TypeScript/JavaScript.
+ • Netlify Graph: GraphQL-based integration for external services.
+ • Async Workloads: Offload heavy tasks.
+ • Edge Middleware Development Kit: Personalize responses at the edge.
+
+ 1. Progressive Enhancement Tools
+
+ • Feature Detection Libraries: Browser checks for advanced features.
+ • Partial Hydration Utilities: Speed up page load by hydrating only essential parts.
+ • Edge Middleware: Serve different experiences based on user conditions.
+
+ 1. Automated Testing Frameworks
+
+ • Jest with Custom Transformers: Unit tests.
+ • Testing Library: React/DOM testing for TSX components.
+ • HTML Validators: W3C compliance checks.
+ • Cypress / Playwright: End-to-end or multi-browser test coverage.
+ • Netlify Build Plugins for Testing: Automated checks during build.
+ • Netlify Deploy Previews: Test in ephemeral environments.
+ • Post-Deployment Testing: Live site checks for performance or regression.
+
+ 1. Continuous Integration & Delivery
+
+ • GitHub Actions: Common CI pipeline for building, testing, deploying.
+ • Netlify Build Optimization: Parallel builds, caching, or bundling improvements.
+ • Lighthouse CI: Automated performance audits.
+ • Bundle Analysis: Identify large dependencies or dead code.
+
+⸻
+
+1. Implementation Examples
+
+Below are sample implementations illustrating how HTML-TSX pairing and Netlify integration can work in practice. These examples originate from the Claudie MCP, now combined here for easy reference.
+
+9.1 Basic Page Implementation Example
+
+HTML File (egg-price-surge-2025.html):
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Egg Price Crisis of 2025</title>
+  <style>
+    /* Critical CSS styles */
+    .analysis-card {
+      background-color: #ebf5ff;
+      border-left: 4px solid #3b82f6;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="analysis-card" data-component-id="egg-crisis-overview">
+    <h2 class="text-2xl font-bold mb-2">The Egg Industry's Perfect Storm</h2>
+    <p class="text-base leading-relaxed">
+      The egg industry faces unprecedented challenges in 2025...
+    </p>
+  </div>
+</body>
+</html>
+
+TSX File (egg-price-surge-2025.tsx):
+
+import { FC } from 'react';
+import Head from 'next/head';
+
+interface EggCrisisProps {
+  title: string;
+  description: string;
+}
+
+const EggPriceSurgePage: FC`EggCrisisProps` = ({ title, description }) => {
+  return (
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+      </Head>
+
+      <div className="analysis-card" id="egg-crisis-overview">
+        <h2 className="text-2xl font-bold mb-2">The Egg Industry's Perfect Storm</h2>
+        <p className="text-base leading-relaxed">
+          The egg industry faces unprecedented challenges in 2025...
+        </p>
+      </div>
+    </>
+  );
+};
+
+export default EggPriceSurgePage;
+
+Key Points:
+ • Matching IDs/Data: data-component-id="egg-crisis-overview" in HTML → id="egg-crisis-overview" in TSX.
+ • Props: If the TSX needs more dynamic data (e.g., title, description), ensure those are used in the <Head> metadata.
+ • Next.js: Showcases how to use the <Head> component for SEO and metadata.
+
+⸻
+
+9.2 Netlify Configuration Example
+
+netlify.toml:
+
+[build]
+  command = "npm run build"
+  publish = "build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[functions]
+  directory = "netlify/functions"
+
+[[headers]]
+  for = "/*"
+    [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    # Additional security headers here
+
+Usage Highlights:
+ • Build Command & Publish Directory: Instructs Netlify how to build the site and where to serve its static files.
+ • Redirects: Catch-all redirect to a single entry point (e.g., single-page app).
+ • Headers: Common security policies (e.g., denying iframe embedding, no MIME sniffing).
+
+⸻

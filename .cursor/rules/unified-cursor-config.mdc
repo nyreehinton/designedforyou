@@ -1,0 +1,366 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Unified Cursor Configuration
+
+This document provides a comprehensive configuration framework for cursor, integrating Model Context Protocols, tool commands, and component frameworks into a cohesive system for Next.js content operations.
+
+## Table of Contents
+
+1. [Model Context Protocol (MCP)](mdc:#model-context-protocol-mcp)
+2. [Tool Configuration](mdc:#tool-configuration)
+3. [HTML-TSX Protocol](mdc:#html-tsx-protocol)
+4. [Workflow Automation](mdc:#workflow-automation)
+5. [Installation Instructions](mdc:#installation-instructions)
+
+## Model Context Protocol (MCP)
+
+### Core Protocol Structure
+
+The MCP configuration is stored in `mcp.json` and defines specialized contexts for different development scenarios:
+
+```json
+{
+  "version": "2.0",
+  "contexts": [
+    {
+      "id": "content-ops",
+      "name": "Content Operations",
+      "description": "Context for content management and operations",
+      "settings": {
+        "model": "gpt-4",
+        "temperature": 0.5,
+        "max_tokens": 2000
+      },
+      "rules": {
+        "tone": "professional",
+        "style": "detailed",
+        "formatting": "markdown",
+        "boundaries": "Focus on content operations, Next.js, and component frameworks",
+        "fallback": "Suggest relevant documentation or tools"
+      },
+      "privacy": {
+        "data_retention": "session",
+        "logging": "minimal"
+      },
+      "tools": [
+        "component-creator",
+        "mcp-validator",
+        "html-tsx-pairing"
+      ]
+    },
+    {
+      "id": "tsx-development",
+      "name": "TSX Development",
+      "description": "Context for developing TSX components",
+      "settings": {
+        "model": "gpt-4",
+        "temperature": 0.4,
+        "max_tokens": 2000
+      },
+      "rules": {
+        "tone": "technical",
+        "style": "concise",
+        "formatting": "code_blocks",
+        "boundaries": "Focus on React, TypeScript, and component development",
+        "fallback": "Reference React documentation"
+      },
+      "privacy": {
+        "data_retention": "session",
+        "logging": "minimal"
+      },
+      "tools": [
+        "component-creator",
+        "performance-optimizer",
+        "accessibility-checker"
+      ]
+    },
+    {
+      "id": "integration",
+      "name": "Third-party Integration",
+      "description": "Context for integrating external applications",
+      "settings": {
+        "model": "gpt-4",
+        "temperature": 0.5,
+        "max_tokens": 2000
+      },
+      "rules": {
+        "tone": "analytical",
+        "style": "detailed",
+        "formatting": "markdown",
+        "boundaries": "Focus on API integration, third-party services, and conversion workflows",
+        "fallback": "Suggest integration patterns or documentation"
+      },
+      "privacy": {
+        "data_retention": "session",
+        "logging": "minimal"
+      },
+      "tools": [
+        "api-analyzer",
+        "mcp-validator",
+        "compatibility-checker"
+      ]
+    }
+  ]
+}
+```
+
+### Context Selection
+
+The active context can be selected through:
+
+1. Command palette: `Select MCP Context`
+2. Status bar indicator showing current context
+3. JSON configuration: `cursor.context` in your personal settings
+
+## Tool Configuration
+
+### Core Tools
+
+The following tools are available across all contexts:
+
+#### Component Creator
+
+Creates new components following the HTML-TSX Protocol with proper type definitions and styling.
+
+```bash
+cursor-tool component-create [name] --type [page|block|ui] --app [optional-app-name]
+```
+
+#### MCP Validator
+
+Validates repository structure and code against MCP guidelines.
+
+```bash
+cursor-tool mcp-validate [--fix] [--report]
+```
+
+#### HTML-TSX Pairing
+
+Creates or validates HTML-TSX component pairs.
+
+```bash
+cursor-tool html-tsx-pair [name] [--validate]
+```
+
+### Context-Specific Tools
+
+#### Content Operations Context
+
+- **Content Model Generator**: `cursor-tool generate-model [name]`
+- **SEO Optimizer**: `cursor-tool optimize-seo [page]`
+- **Markdown Fixer**: `cursor-tool fix-md [path]`
+
+#### TSX Development Context
+
+- **Performance Optimizer**: `cursor-tool optimize-perf [component]`
+- **Accessibility Checker**: `cursor-tool check-a11y [component]`
+- **Type Generator**: `cursor-tool generate-types [component]`
+
+#### Integration Context
+
+- **API Analyzer**: `cursor-tool analyze-api [endpoint]`
+- **Compatibility Checker**: `cursor-tool check-compat [component]`
+- **CSS Isolator**: `cursor-tool isolate-css [component]`
+
+### AI Assistant Tools
+
+These tools are available through the cursor AI assistant:
+
+- **codebase_search**: Find semantically relevant code in your project
+- **grep_search**: Find pattern matches in your codebase
+- **think_tool**: Strategic reasoning about complex tasks
+- **edit_file**: Make context-aware edits to existing files
+
+## HTML-TSX Protocol
+
+The HTML-TSX Protocol defines standards for creating paired HTML and TSX components:
+
+### File Structure
+
+- HTML files: `/pages/*.html` or `/public/*.html`
+- TSX components: `/components/*.tsx` or `/src/components/*.tsx`
+- CSS modules: `/styles/*.module.css` or `/src/styles/*.module.css`
+
+### Component Requirements
+
+#### HTML Files
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{PageTitle}</title>
+  <style>
+    /* Critical CSS */
+  </style>
+</head>
+<body>
+  <main data-component-id="main-content" 
+        data-props='{"title":"Example Title","description":"Example description"}'>
+    <h1>Example Title</h1>
+    <p>Example description</p>
+  </main>
+</body>
+</html>
+```
+
+#### TSX Components
+
+```tsx
+import React from 'react';
+import styles from '@/styles/component-name.module.css';
+
+interface ComponentProps {
+  title: string;
+  description: string;
+  className?: string;
+}
+
+/**
+ * ComponentName component
+ * 
+ * @param props - Component properties
+ * @returns React component
+ */
+const ComponentName: React.FC<ComponentProps> = ({ 
+  title,
+  description,
+  className = ''
+}) => {
+  return (
+    <div className={`${styles.root} ${className}`}>
+      <h1 className={styles.title}>{title}</h1>
+      <p className={styles.description}>{description}</p>
+    </div>
+  );
+};
+
+export default ComponentName;
+```
+
+#### CSS Modules
+
+```css
+/* component-name.module.css */
+.root {
+  /* CSS variables scoped to this component */
+  --component-primary-color: #0a2856;
+  --component-secondary-color: #c19b4a;
+}
+
+.title {
+  color: var(--component-primary-color);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.description {
+  color: var(--component-secondary-color);
+  font-size: 1rem;
+}
+```
+
+### Data Binding
+
+1. Use `data-component-id` in HTML to mark hydration points
+2. Use `data-props` with JSON string for declarative props passing
+3. Match component props interface with data-props structure
+
+## Workflow Automation
+
+### Git Hooks
+
+Configure the following Git hooks for automated validation:
+
+```bash
+# .git/hooks/pre-commit
+#!/bin/bash
+cursor-tool mcp-validate
+cursor-tool html-tsx-pair --validate
+```
+
+### VS Code Integration
+
+Add the following to your VS Code settings:
+
+```json
+{
+  "cursor.mcpContext": "content-ops",
+  "cursor.enableAutoValidation": true,
+  "cursor.validateOnSave": true,
+  "cursor.tools.path": "~/.cursor/config/tools",
+  "cursor.diagnostics.mcp": true
+}
+```
+
+### CI Pipeline
+
+Add the MCP validation to your CI workflow:
+
+```yaml
+steps:
+  - name: Validate MCP
+    run: cursor-tool mcp-validate --report
+  
+  - name: Validate HTML-TSX Pairing
+    run: cursor-tool html-tsx-pair --validate --all
+```
+
+## Installation Instructions
+
+### Setting Up Configuration
+
+1. Create necessary directories:
+
+```bash
+mkdir -p ~/.cursor/config/tools
+```
+
+2. Copy configuration files:
+
+```bash
+# Core configuration
+cp mcp.json ~/.cursor/config/
+cp HTML_TSX_PROTOCOL.md ~/.cursor/config/
+cp toolcommands.md ~/.cursor/config/
+
+# Tool implementations
+cp -r tools/* ~/.cursor/config/tools/
+```
+
+3. Make tools executable:
+
+```bash
+chmod +x ~/.cursor/config/tools/*.js
+```
+
+4. Configure your editor:
+
+```bash
+# VS Code
+code --install-extension cursor-mcp.vsix
+
+# Add to PATH
+echo 'export PATH="$PATH:$HOME/.cursor/config/tools"' >> ~/.bashrc
+```
+
+### Usage
+
+1. Select your MCP context: `Ctrl+Shift+P` → `Select MCP Context`
+2. Create a new component: `cursor-tool component-create MyComponent --type page`
+3. Validate your codebase: `cursor-tool mcp-validate`
+4. Get AI assistance with `@cursor help`
+
+### Troubleshooting
+
+If you encounter issues:
+
+1. Check tool paths: `which cursor-tool`
+2. Verify configuration: `cat ~/.cursor/config/mcp.json`
+3. Restart VS Code/editor to apply changes
+4. Check logs in Output panel: `Cursor MCP`

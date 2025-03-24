@@ -1,0 +1,236 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+
+# Model Context Protocol (MCP) for Cursor Integration
+
+## Introduction
+
+This document defines the **Model Context Protocol (MCP)** for integrating Grok with the Cursor project. The MCP provides a standardized framework to define and manage multiple contexts in which Grok can operate, allowing Cursor to adapt Grok’s behavior to specific tasks or user needs. Each context specifies operational parameters, response guidelines, and privacy settings, making this MCP a comprehensive, standalone resource.
+
+The MCP is:
+- **Self-contained**: No external dependencies or APIs are required.
+- **Configurable**: Easy to set up and customize within Cursor.
+- **Extensible**: Supports the addition or modification of contexts.
+- **Versioned**: Facilitates updates while maintaining compatibility.
+
+This document includes the protocol structure, configuration guide, interaction rules, and supplementary documentation to ensure Cursor can fully leverage Grok’s capabilities.
+
+---
+
+## MCP Structure
+
+The MCP is encapsulated in a single JSON file named `mcp.json`, which contains an array of context definitions. Each context outlines how Grok should behave in a specific scenario, such as web development or data analysis.
+
+### File Format
+
+- **File Name**: `mcp.json`
+- **Format**: JSON
+- **Purpose**: Provides a universal, machine-readable structure that Cursor can parse to access all available contexts.
+
+### Structure Overview
+
+- **version**: A string indicating the MCP version for compatibility tracking.
+- **contexts**: An array of context objects, each defining a unique operational mode for Grok.
+
+Each context object includes:
+- **id**: A unique identifier (string).
+- **name**: A human-readable name (string).
+- **description**: A brief purpose statement (string).
+- **settings**: Operational parameters for Grok (object).
+- **rules**: Response behavior guidelines (object).
+- **privacy**: Data handling and security settings (object).
+
+### Example `mcp.json`
+
+```json
+{
+  "version": "1.0",
+  "contexts": [
+    {
+      "id": "web-dev",
+      "name": "Web Development",
+      "description": "Context for assisting with web development tasks",
+      "settings": {
+        "model": "grok-webdev-v1",
+        "temperature": 0.7,
+        "max_tokens": 150
+      },
+      "rules": {
+        "tone": "professional",
+        "style": "concise",
+        "formatting": "markdown",
+        "boundaries": "Focus on web technologies (HTML, CSS, JavaScript, frameworks).",
+        "fallback": "Suggest relevant resources or documentation."
+      },
+      "privacy": {
+        "data_retention": "none",
+        "logging": "minimal"
+      }
+    },
+    {
+      "id": "data-analysis",
+      "name": "Data Analysis",
+      "description": "Context for data analysis and visualization tasks",
+      "settings": {
+        "model": "grok-data-v2",
+        "temperature": 0.5,
+        "max_tokens": 200
+      },
+      "rules": {
+        "tone": "analytical",
+        "style": "detailed",
+        "formatting": "plain_text",
+        "boundaries": "Focus on data analysis, statistics, and visualization tools.",
+        "fallback": "Recommend further reading or specific tools."
+      },
+      "privacy": {
+        "data_retention": "session",
+        "logging": "full"
+      }
+    }
+  ]
+}
+```
+
+### Field Descriptions
+
+- **version**: Tracks the MCP version (e.g., "1.0"). Update this when the structure changes significantly.
+- **contexts**: Contains all context definitions.
+  - **id**: Unique string identifier (e.g., "web-dev"). Used by Cursor to select a context.
+  - **name**: Descriptive name (e.g., "Web Development").
+  - **description**: Explains the context’s purpose.
+  - **settings**: Configures Grok’s operation:
+    - **model**: Specifies the Grok model variant (e.g., "grok-webdev-v1").
+    - **temperature**: Controls response creativity (float, 0.0 to 1.0).
+    - **max_tokens**: Limits response length (integer).
+  - **rules**: Defines response behavior:
+    - **tone**: Sets the attitude (e.g., "professional", "analytical").
+    - **style**: Sets detail level (e.g., "concise", "detailed").
+    - **formatting**: Specifies output format (e.g., "markdown", "plain_text").
+    - **boundaries**: Defines topical scope.
+    - **fallback**: Instructions for unanswerable queries.
+  - **privacy**: Ensures data security:
+    - **data_retention**: Duration of data storage ("none", "session", "persistent").
+    - **logging**: Logging level ("minimal", "full").
+
+---
+
+## Configuration Guide
+
+This section provides step-by-step instructions to deploy and manage the MCP within Cursor.
+
+### 1. Install the MCP File
+
+- **Action**: Place `mcp.json` in Cursor’s configuration directory.
+- **Suggested Location**: `/config/mcp.json` (adjust based on Cursor’s setup).
+- **Verification**: Ensure Cursor can access the file by checking its configuration settings.
+
+### 2. Select a Context
+
+- **Method**: Use the context’s `id` to activate it in Cursor.
+- **Options**:
+  - **UI**: Add a dropdown or input in Cursor’s interface to select an `id`.
+  - **Command**: Implement a command (e.g., `set-context web-dev`).
+  - **Config File**: Specify the `id` in Cursor’s settings (e.g., `"active_context": "web-dev"`).
+- **Default**: If no context is selected, use the first context in the `contexts` array.
+
+### 3. Customize Contexts
+
+- **Add a Context**: Append a new object to the `contexts` array in `mcp.json`. Ensure a unique `id`.
+- **Modify a Context**: Edit the fields of an existing context object.
+- **Validation**: Check for JSON syntax errors after modifications.
+
+### 4. Update the MCP
+
+- **Process**: Replace `mcp.json` with an updated version when available.
+- **Version Check**: Compare the `version` field to identify changes. Update Cursor’s parsing logic if new fields are added.
+
+---
+
+## Interaction Rules
+
+Each context defines how Grok should respond to queries, ensuring consistency and relevance.
+
+### Core Rules
+
+- **Tone**: Sets the response attitude (e.g., "professional" for formal, "analytical" for precise).
+- **Style**: Determines detail level (e.g., "concise" for brevity, "detailed" for depth).
+- **Formatting**: Specifies output structure (e.g., "markdown" for rich text, "plain_text" for simplicity).
+- **Boundaries**: Limits responses to context-specific topics.
+- **Fallback**: Provides alternatives when direct answers are unavailable.
+
+### Example Rules
+
+#### Web Development Context
+- **Tone**: Professional and helpful
+- **Style**: Concise and to the point
+- **Formatting**: Markdown with code blocks
+- **Boundaries**: Web technologies (HTML, CSS, JavaScript, etc.)
+- **Fallback**: Suggest documentation or resources (e.g., MDN Web Docs)
+
+#### Data Analysis Context
+- **Tone**: Analytical and precise
+- **Style**: Detailed with examples
+- **Formatting**: Plain text with code snippets
+- **Boundaries**: Data analysis, statistics, visualization
+- **Fallback**: Recommend tools (e.g., Pandas) or references
+
+### Privacy and Security
+
+- **Data Handling**: Adheres to the `privacy` settings in each context:
+  - **data_retention**: "none" means no storage; "session" limits to the current interaction.
+  - **logging**: "minimal" logs essentials; "full" logs all interactions.
+- **Compliance**: Ensures no sensitive data is stored or transmitted beyond specified limits.
+
+---
+
+## Supplementary Documentation
+
+### Usage Examples
+
+#### Web Development Context
+**Query**: "How do I center a div in CSS?"
+**Response**:
+```markdown
+To center a div in CSS, use flexbox:
+
+```css
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+```
+
+This centers the div horizontally and vertically within its parent.
+```
+
+#### Data Analysis Context
+**Query**: "How can I visualize correlation between variables?"
+**Response**:
+A scatter plot is the best way to visualize correlation between two variables. Plot one variable on the x-axis and the other on the y-axis; the point distribution shows correlation strength and direction. For multiple variables, use a correlation matrix heatmap. Tools like Matplotlib or Seaborn in Python are recommended.
+
+### Best Practices
+
+- **Query Clarity**: Phrase queries specifically to match the context (e.g., "CSS centering" in "web-dev").
+- **Context Selection**: Choose the most relevant context for the task.
+- **Feedback**: Report inaccuracies to refine Grok’s responses.
+
+### Troubleshooting
+
+- **Context Not Loading**: Verify the `id` matches an entry in `mcp.json`.
+- **Unexpected Formatting**: Check the `formatting` rule in the context.
+- **Privacy Issues**: Confirm `privacy` settings align with requirements.
+
+### Developer Notes
+
+- **Extensibility**: Add new contexts by appending to `contexts`. Maintain unique `id`s.
+- **Validation**: Use a JSON schema validator to ensure `mcp.json` integrity.
+- **Updates**: Increment `version` for major changes. Document new fields or defaults.
+- **Fallback Logic**: Implement a default context if selection fails.
+
+---
