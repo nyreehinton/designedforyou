@@ -31,14 +31,6 @@ cd commands
 ./all-tools.sh
 ```
 
-## Interactive Menu
-
-For easier access to all tools, run the interactive menu:
-
-```bash
-npm run commands
-```
-
 This launches a user-friendly interface that organizes all tools by category.
 
 ## Available Scripts
@@ -55,30 +47,11 @@ This launches a user-friendly interface that organizes all tools by category.
 
 For detailed documentation on each tool, refer to the inline help by running any script with the `--help` flag.
 
-# Ensure package.json is created if it doesn't exist
-
-if [ ! -f package.json ]; then
-npm init -y
-fi
-
-# Update package.json with explicit scripts
-
-npm pkg set scripts.think-tool="node scripts/tools/think-tool.js" \
- scripts.test-think-tool="node scripts/tools/test-think-tool.js"
-
-# Verify the scripts are added correctly
-
-echo "Verifying package.json scripts:"
-npm run
-
-# Ensure the tools directory exists
-
-mkdir -p scripts/tools
-
 # Create think-tool.js
 
 cat > scripts/tools/think-tool.js << 'EOF'
-#!/usr/bin/env node
+
+# !/usr/bin/env node
 
 const fs = require('fs');
 const path = require('path');
@@ -226,7 +199,8 @@ EOF
 # Create test script
 
 cat > scripts/tools/test-think-tool.js << 'EOF'
-#!/usr/bin/env node
+
+# !/usr/bin/env node
 
 const ThinkTool = require('./think-tool');
 
