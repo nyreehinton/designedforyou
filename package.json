@@ -1,24 +1,13 @@
 {
-    "name": "seo-improvements",
-    "version": "1.0.0",
-    "description": "SEO improvement tools for Designed For You website",
-    "scripts": {
-        "optimize-metadata": "node scripts/seo-improvements/metadata-optimizer.js",
-        "optimize-content": "node scripts/seo-improvements/content-optimizer.js",
-        "seo-audit": "node scripts/seo/seo-audit.js",
-        "think-tool": "node scripts/tools/think-tool.js",
-        "test-think-tool": "node scripts/tools/test-think-tool.js",
-        "metadata-optimize": "node scripts/seo/metadata-optimizer.js",
-        "content-optimize": "node scripts/seo/content-optimizer.js",
-        "seo-optimize": "npm run metadata-optimize && npm run content-optimize",
-        "seo-fix": "npm run seo-optimize && npm run seo-audit",
-        "build": "mkdir -p dist && cp -r *.html assets public styles src components seo-report dist/ && npm run seo-optimize && node generate-sitemap.js && cp sitemap.xml robots.txt dist/ && npm run dist-audit",
-        "dist-audit": "node scripts/seo/run-dist-audit.js",
-        "seo": "./commands/seo-tools.sh",
-        "deploy": "./commands/deployment-tools.sh"
-    },
-    "dependencies": {
-        "cheerio": "^1.0.0-rc.10",
-        "sitemap": "^7.1.1"
-    }
+  "name": "designedforyou",
+  "version": "1.0.0",
+  "description": "Designed For You - Professional Web Development Services",
+  "scripts": {
+    "dev": "npx http-server . -p 3000",
+    "build": "mkdir -p dist && cp -r *.html assets public styles src components dist/",
+    "start": "npx http-server dist -p 3001"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
 }

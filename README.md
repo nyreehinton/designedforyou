@@ -1,3 +1,5 @@
+# This is my designedforyou website, ignore the below
+
 # SEO Optimization Tools
 
 This repository contains tools for SEO optimization of the Designed For You website.

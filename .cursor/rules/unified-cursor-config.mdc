@@ -364,3 +364,9 @@ If you encounter issues:
 2. Verify configuration: `cat ~/.cursor/config/mcp.json`
 3. Restart VS Code/editor to apply changes
 4. Check logs in Output panel: `Cursor MCP`
+
+# Run SEO optimization scripts
+npm run seo-optimize
+
+# Perform SEO audit
+npm run seo-audit
