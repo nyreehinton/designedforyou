@@ -1,10 +1,10 @@
 {
   "name": "designedforyou",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Designed For You - Professional Web Development Services",
   "scripts": {
-    "dev": "npx http-server . -p 3000",
-    "build": "mkdir -p dist && cp -r *.html assets public styles src components dist/",
+    "dev": "npx http-server . -p 3001",
+    "build": "mkdir -p dist && cp -r *.html assets public src components dist/ && [ -d styles ] && cp -r styles dist/ || true",
     "start": "npx http-server dist -p 3001"
   },
   "dependencies": {
